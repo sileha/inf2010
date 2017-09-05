@@ -71,7 +71,7 @@ public class ColorPixel extends AbstractPixel
 		int rgba[] = new int[4];
 		rgba[0] = this.rgb[0];
 		rgba[1] = this.rgb[1];
-		rgba[2] = this.rgb[3];
+		rgba[2] = this.rgb[2];
 		rgba[3] = 255;
 		TransparentPixel tp = new TransparentPixel(rgba);
 		return tp;
