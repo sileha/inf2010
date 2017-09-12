@@ -122,20 +122,100 @@ public class FormValidator
 	 * choisis entre A et Z
 	 * @param length : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
 	 */
-	private static String generateCode(int length)
-	{
+	private static String generateCode(int length) {
 		if (length > 10) return null;
-		
-		char[] charKey = new char[ length ];
-		
-		Random generator = new Random( System.nanoTime() );
-		
-		// compl�ter
 
-		return null; // Pour l'instant
+		char[] charKey = new char[length];
 
+		Random generator = new Random(System.nanoTime());
+
+		int nbAleatoire = generator.nextInt(27);
+		int temp = 0;
+
+		while (temp < 10) {
+			switch (nbAleatoire) {
+
+				case 1:
+					charKey[temp] = 'A';
+					break;
+				case 2:
+					charKey[temp] = 'B';
+					break;
+				case 3:
+					charKey[temp] = 'C';
+					break;
+				case 4:
+					charKey[temp] = 'C';
+					break;
+				case 5:
+					charKey[temp] = 'D';
+					break;
+				case 6:
+					charKey[temp] = 'E';
+					break;
+				case 7:
+					charKey[temp] = 'F';
+					break;
+				case 8:
+					charKey[temp] = 'G';
+					break;
+				case 9:
+					charKey[temp] = 'H';
+					break;
+				case 10:
+					charKey[temp] = 'I';
+					break;
+				case 11:
+					charKey[temp] = 'J';
+					break;
+				case 12:
+					charKey[temp] = 'K';
+					break;
+				case 13:
+					charKey[temp] = 'L';
+					break;
+				case 14:
+					charKey[temp] = 'M';
+					break;
+				case 15:
+					charKey[temp] = 'N';
+					break;
+				case 16:
+					charKey[temp] = 'O';
+					break;
+				case 17:
+					charKey[temp] = 'P';
+					break;
+				case 18:
+					charKey[temp] = 'R';
+					break;
+				case 19:
+					charKey[temp] = 'S';
+					break;
+				case 20:
+					charKey[temp] = 'T';
+					break;
+				case 21:
+					charKey[temp] = 'V';
+					break;
+				case 23:
+					charKey[temp] = 'W';
+					break;
+				case 24:
+					charKey[temp] = 'X';
+					break;
+				case 25:
+					charKey[temp] = 'Y';
+					break;
+				case 26:
+					charKey[temp] = 'Z';
+					break;
+
+			}
+
+		}
+		return new StringBuilder(charKey[0]).append(charKey[1]).append(charKey[2]).append(charKey[3]).append(charKey[4]).append(charKey[5]).append(charKey[6]).append(charKey[7]).append(charKey[8]).append(charKey[9]).toString();
 	}
-	
 	/**
 	 * Genere et retourne plusieurs nombres aleatoires entre 0 et 9 (inclus) 
 	 * @param nb : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
@@ -147,10 +227,14 @@ public class FormValidator
 		int[] charTransform = new int[ nb ];
 		
 		Random generator = new Random( System.nanoTime() );
-		
+		for (int i=0; i< 10 ; i++)
+		{
+			int newnbre = generator.nextInt(11);
+			charTransform[i] = newnbre;
+		}
 		// compl�ter
 
-		return null; // Pour l'instant
+		return charTransform ;
 		
 	}
 

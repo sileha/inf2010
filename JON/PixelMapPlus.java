@@ -102,7 +102,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void rotate(int x, int y, double angleRadian)
 	{
 		// compl�ter
-		
+		for (int i = 0; i < width; i++)
+		{
+			for (int j=0 ; j < height; j++)
+			imageData[(int) ((j + i*Math.tan(angleRadian))/(Math.sin(angleRadian)*(Math.tan(angleRadian))+Math.cos(angleRadian)))][(int) (i/Math.cos(angleRadian)-((j+i*Math.tan(angleRadian))*Math.tan(angleRadian))/(Math.tan(angleRadian)*Math.sin(angleRadian)+Math.cos(angleRadian)))] = imageData[j][i];
+		}
 	}
 	
 	/**
@@ -116,7 +120,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			throw new IllegalArgumentException();
 		
 		// compl�ter
-		
+		this.height = h;
+		this.width = w;
 	}
 	
 	/**
@@ -125,15 +130,68 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void inset(PixelMap pm, int row0, int col0)
 	{
 		// compl�ter
-		
-	}
-	
+	 for (int i= row0; i < width ; i++)
+	 {
+		 for (int j= col0; j < height; j++) // il ne sort pas de l'image de destination /
+		 {
+		 imageData[j][i] = pm.imageData[j - col0][i - row0];
+		 }
+	 }
+	 }
+
+
+	 public void RemplirTableau(int DebutLongueur,int DebutLargeur, int FinLongueur, int FinLargeur )
+	 {
+		 for (int i = DebutLargeur; i < FinLargeur; i++)
+		 {
+			 for (int j = DebutLongueur ; j < FinLongueur ; j++ )
+			 {
+				 imageData[j][i] = this.getPixel(j,i).toColorPixel();
+
+			 }
+
+		 }
+
+
+	 }
+
+
 	/**
 	 * Decoupe l'image 
 	 */
 	public void crop(int h, int w)
 	{
-		// compl�ter		
+		// compl�ter
+
+		if ( h> 0  || w > 0)
+		{
+			if (h< height  || width > w)
+			{
+				this.resize(w , h);
+
+			}
+
+			else if (h > height || w < width)
+
+			{
+				int temp = height ;
+				this.resize(w,h);
+				this.RemplirTableau(temp, 0, h, width);
+			}
+			else if ( h<height || w>width)
+			{
+				int temp = width;
+				this.resize(w,h);
+				this.RemplirTableau(0, temp,height,width);
+			}
+				else if ( h > height || w > width)
+				{
+				int temp1 = height;
+				int temp2 = width;
+				this.resize(w,h);
+				this.RemplirTableau(temp1, temp2, height , width);
+			    }
+		}
 		
 	}
 	
@@ -158,7 +216,33 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			throw new IllegalArgumentException();
 		
 		// compl�ter
-		
+
+			int zoomhight = (int) (width/zoomFactor) ;
+			int zoomwidth = (int) (height/zoomFactor);
+		AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
+			int largeur = 0, longueur = 0;
+
+
+			if ( (x==0 && y==0 ) || ( x==0 && y==height) || (x==width && y==height) || (x==width && y==0))
+			{
+				x = width/2;
+				y= height/2;
+
+			}
+
+			for (int i= y - zoomhight/2; i < y + zoomhight/2 ; i++)
+			{
+				longueur++;
+				largeur=0;
+				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++)
+				{
+					largeur++;
+					newimageData[longueur][largeur] = imageData[i][j];
+
+				}
+			}
+
+			this.imageData = newimageData ;
 	}
 
 	/**
