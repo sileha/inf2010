@@ -73,17 +73,18 @@ public class Main
 		npmp.resize(npmp.width/2, npmp.height/2);
 		npmp.negate();
 
-		pmp.inset(hpmp, 0, 0);
+		
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
+		pmp.inset(hpmp, 0, 0);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
 		pmp.inverser();
 	
-		String wName = "Edsger Dijkstra";
-		new DisplayImageWindow(wName, hpmp);
+		String wName = "Edsger Dijkstra"; 
+		new DisplayImageWindow(wName, pmp);
 		new DisplayImageWindow(wName, gpmp);
 		new DisplayImageWindow(wName, npmp);
-		new DisplayImageWindow(wName, pmp);
+		new DisplayImageWindow(wName, hpmp);
 
 	}
 }

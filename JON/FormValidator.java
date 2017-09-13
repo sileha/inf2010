@@ -132,9 +132,9 @@ public class FormValidator
 		int nbAleatoire = generator.nextInt(27);
 		int temp = 0;
 
-		while (temp < 10) {
+		while (temp < length) {
 			switch (nbAleatoire) {
-
+			
 				case 1:
 					charKey[temp] = 'A';
 					break;
@@ -212,9 +212,11 @@ public class FormValidator
 					break;
 
 			}
-
+			temp++;
 		}
-		return new StringBuilder(charKey[0]).append(charKey[1]).append(charKey[2]).append(charKey[3]).append(charKey[4]).append(charKey[5]).append(charKey[6]).append(charKey[7]).append(charKey[8]).append(charKey[9]).toString();
+		
+		return new  String(charKey);
+			
 	}
 	/**
 	 * Genere et retourne plusieurs nombres aleatoires entre 0 et 9 (inclus) 
@@ -227,12 +229,11 @@ public class FormValidator
 		int[] charTransform = new int[ nb ];
 		
 		Random generator = new Random( System.nanoTime() );
-		for (int i=0; i< 10 ; i++)
+		for (int i=0; i< nb ; i++)
 		{
 			int newnbre = generator.nextInt(11);
 			charTransform[i] = newnbre;
 		}
-		// compl�ter
 
 		return charTransform ;
 		

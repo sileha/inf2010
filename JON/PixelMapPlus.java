@@ -132,7 +132,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void rotate(int x, int y, double angleRadian)
 	{
 		// complï¿½ter
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < width; i++)  // verifier que lindice trouve est dans le tableau
 		{
 			for (int j=0 ; j < height; j++)
 			imageData[(int) ((j + i*Math.tan(angleRadian))/(Math.sin(angleRadian)*(Math.tan(angleRadian))+Math.cos(angleRadian)))][(int) (i/Math.cos(angleRadian)-((j+i*Math.tan(angleRadian))*Math.tan(angleRadian))/(Math.tan(angleRadian)*Math.sin(angleRadian)+Math.cos(angleRadian)))] = imageData[j][i];
@@ -157,16 +157,20 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Insert pm dans l'image a la position row0 col0
 	 */
-	public void inset(PixelMap pm, int row0, int col0)
+	public void inset(PixelMap pm, int row0 , int col0 )
 	{
-		int longueur=0 , largeur = -1;
-	 for (int i= row0; i < pm.width ; i++)
+		int longueur=0 , largeur = 0;
+		/*if (pm.getType() != this.getType())
+		{*/
+		pm = new PixelMap(this.getType(), pm);
+		
+	 for (int i= col0; i < width && largeur < pm.width ; i++,  largeur++)
 	 	{
-		 largeur++;
+		
 		 longueur = 0;
-		 for (int j= col0; j < pm.height; j++) 
+		 for (int j= row0; j < height  && pm.height > longueur; j++, longueur++) 
 		 	{
-			 	imageData[j][i] = pm.imageData[longueur++][largeur];
+			 	imageData[j][i] = pm.imageData[longueur][largeur];
 			 	
 		 	}
 	 	}
@@ -267,14 +271,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				
 				largeur=0;
 				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++)
-				{
-					 
-					newimageData[longueur][largeur] = imageData[i][j];
-					largeur++;
-
+				{ 
+					newimageData[longueur][largeur++] = imageData[i][j];
 				}
+				
 			}
-
 			this.imageData = newimageData ;
 	}
 
