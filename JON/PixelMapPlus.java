@@ -129,9 +129,9 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * Les pixels vides sont blancs.
 	 * @param clockWise : Direction de la rotation 
 	 */
-	public void rotate(int x, int y, double angleRadian)	/* java.lang.ArrayIndexOutOfBoundsException: -1 */
+	public void rotate(int x, int y, double angleRadian)
 	{
-		// compl�ter
+		// complï¿½ter
 		for (int i = 0; i < width; i++)
 		{
 			for (int j=0 ; j < height; j++)
@@ -149,7 +149,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		if(w < 0 || h < 0)
 			throw new IllegalArgumentException();
 		
-		// compl�ter
+		
 		this.height = h;
 		this.width = w;
 	}
@@ -159,16 +159,17 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void inset(PixelMap pm, int row0, int col0)
 	{
-		// compl�ter
-		int height = 0, width = 0;
-	 for (int i= row0; i < width ; i++)
-	 {
-	 	width++;
-		 for (int j= col0; j < height; j++) // il ne sort pas de l'image de destination /
-		 {
-		 imageData[j][i] = pm.imageData[width][height++];
-		 }
-	 }
+		int longueur=0 , largeur = -1;
+	 for (int i= row0; i < pm.width ; i++)
+	 	{
+		 largeur++;
+		 longueur = 0;
+		 for (int j= col0; j < pm.height; j++) 
+		 	{
+			 	imageData[j][i] = pm.imageData[longueur++][largeur];
+			 	
+		 	}
+	 	}
 	 }
 
 
@@ -193,11 +194,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void crop(int h, int w)
 	{
-		// compl�ter
+		// complï¿½ter
 
 		if ( h> 0  || w > 0)
 		{
-			if (h < height  || width > w)
+			if (h< height  || width > w)
 			{
 				this.resize(w , h);
 
@@ -230,27 +231,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Effectue une translation de l'image 
 	 */
-	public void translate(int rowOffset, int colOffset) {
-		// compl�ter
-		AbstractPixel bufferImage[][] = new AbstractPixel[height - rowOffset][width - colOffset];
-		if (rowOffset == 0 && colOffset > 0) {
-			for (int i = 0; i < height; i++) {
-				for (int j = 0; j + colOffset < width; i++) {
-					bufferImage[i][j] = imageData[i][j + 1];
-				}
-			}
-		}
-		imageData = bufferImage; 
-		System.out.println("Test");
-	/*	if(rowOffset > 0 && colOffset == 0) {
-			for(int j = 0; j < width; j++) {
-				for(int i = 0; i + rowOffset < height; i++) {
-					imageData[i +1][j] = imageData[i][j];
-				}
-			}
-		}*/
-
-		}
+	public void translate(int rowOffset, int colOffset)
+	{
+		// complï¿½ter		
+		
+	}
 	
 	/**
 	 * Effectue un zoom autour du pixel (x,y) d'un facteur zoomFactor 
@@ -262,31 +247,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	{
 		if(zoomFactor < 1.0)
 			throw new IllegalArgumentException();
-		
-		// compl�ter
 
-			int zoomHeight = (int) (height/zoomFactor);
-			int zoomWidth = (int) (width/zoomFactor);
-			AbstractPixel[][] newImageData = new AbstractPixel[zoomHeight][zoomWidth];
-
-			int someHeight = 0;
-			int someWidth = 0;
-
-			for(int i = 0; i < zoomHeight; i++) {
-
-			}
-
-
-			System.out.println("Test");
-
-
-
-
-			newImageData = null;
-
-			/*int zoomhight = (int) (height/zoomFactor) ;
+			int zoomhight = (int) (height/zoomFactor) ;
 			int zoomwidth = (int) (width/zoomFactor);
-			AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
+		AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
 			int largeur = 0, longueur = -1;
 
 
@@ -300,16 +264,18 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			for (int i= y - zoomhight/2; i < y + zoomhight/2 ; i++)
 			{
 				longueur++;
+				
 				largeur=0;
 				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++)
 				{
+					 
 					newimageData[longueur][largeur] = imageData[i][j];
 					largeur++;
 
 				}
 			}
 
-			this.imageData = newimageData ;*/
+			this.imageData = newimageData ;
 	}
 
 	/**
@@ -321,27 +287,13 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * (sa valeur est entre min et max)
 	 */
 	public void replaceColor(AbstractPixel min, AbstractPixel max,
-			AbstractPixel newPixel) {	/* Fonctionne */
-		// compl�ter
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				if(imageData[i][j].compareTo(min) == 1 || imageData[i][j].compareTo(max) == 1)
-					imageData[i][j] = newPixel;
-			}
-		}
+			AbstractPixel newPixel) {
+		// complï¿½ter
+		
 	}
 
-	public void inverser() {  /* Fonctionne */
-		// compl�ter
-		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
-		int indexFinaleHeight = height - 1;
-		int indexFinalWidth = width - 1;
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				bufferImage[i][j] = imageData[indexFinaleHeight - i][indexFinalWidth- j];
-			}
-		}
-		imageData = bufferImage;
-		bufferImage = null;
+	public void inverser() {
+		// complï¿½ter
+				
 	}
 }
