@@ -180,12 +180,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			 for (int j = DebutLongueur ; j < FinLongueur ; j++ )
 			 {
 				 imageData[j][i] = this.getPixel(j,i).toColorPixel();
-
 			 }
-
 		 }
-
-
 	 }
 
 
@@ -211,7 +207,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				this.resize(w,h);
 				this.RemplirTableau(temp, 0, h, width);
 			}
-			else if ( h<height || w>width)
+			else if ( h <height || w>width)
 			{
 				int temp = width;
 				this.resize(w,h);
@@ -289,11 +285,25 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void replaceColor(AbstractPixel min, AbstractPixel max,
 			AbstractPixel newPixel) {
 		// complï¿½ter
-		
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
+                if(imageData[i][j].compareTo(min) == 1 || imageData[i][j].compareTo(max) == 1)
+                    imageData[i][j] = newPixel;
+            }
+        }
 	}
 
 	public void inverser() {
-		// complï¿½ter
-				
-	}
+        // complï¿½ter
+        AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
+        int finalHeightIndex = height - 1, finalWidthIndex = width - 1;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                bufferImage[i][j] = imageData[finalHeightIndex - i][finalWidthIndex - j];
+            }
+        }
+        imageData = bufferImage;
+        bufferImage = null;
+    }
 }
