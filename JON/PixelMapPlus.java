@@ -54,42 +54,72 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Genere le negatif d'une image
 	 */
-	public void negate()
+	public void negate()	/* Fonctionne */
 	{
 		// compl�ter
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++)
+				imageData[i][j] = imageData[i][j].Negative();
+		}
 	}
 	
 	/**
 	 * Convertit l'image vers une image en noir et blanc
 	 */
-	public void convertToBWImage()
+	public void convertToBWImage()	/* Fonctionne */
 	{
 		// compl�ter
-		
+		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++)
+			buffer[i][j] = imageData[i][j].toBWPixel();
+		}
+
+		imageData = buffer;
+		buffer = null;
 	}
 	
 	/**
 	 * Convertit l'image vers un format de tons de gris
 	 */
-	public void convertToGrayImage()
+	public void convertToGrayImage()	/* Fonctionne */
 	{
 		// compl�ter
-		
+		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++)
+				buffer[i][j] = imageData[i][j].toGrayPixel();
+		}
+
+		imageData = buffer;
+		buffer = null;
 	}
 	
 	/**
 	 * Convertit l'image vers une image en couleurs
 	 */
-	public void convertToColorImage()
+	public void convertToColorImage()	/* Fonctionne */
 	{
 		// compl�ter
-		
+		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++)
+				buffer[i][j] = imageData[i][j].toColorPixel();
+		}
+		imageData = buffer;
+		buffer = null ;
 	}
 	
 	public void convertToTransparentImage()
 	{
 		// compl�ter
-		
+		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++)
+				buffer[i][j] = imageData[i][j].toTransparentPixel();
+		}
+		imageData = buffer;
+		buffer = null;
 	}
 	
 	/**
@@ -99,7 +129,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * Les pixels vides sont blancs.
 	 * @param clockWise : Direction de la rotation 
 	 */
-	public void rotate(int x, int y, double angleRadian)
+	public void rotate(int x, int y, double angleRadian)	/* java.lang.ArrayIndexOutOfBoundsException: -1 */
 	{
 		// compl�ter
 		for (int i = 0; i < width; i++)
@@ -130,11 +160,13 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void inset(PixelMap pm, int row0, int col0)
 	{
 		// compl�ter
+		int height = 0, width = 0;
 	 for (int i= row0; i < width ; i++)
 	 {
+	 	width++;
 		 for (int j= col0; j < height; j++) // il ne sort pas de l'image de destination /
 		 {
-		 imageData[j][i] = pm.imageData[j - col0][i - row0];
+		 imageData[j][i] = pm.imageData[width][height++];
 		 }
 	 }
 	 }
@@ -165,7 +197,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 
 		if ( h> 0  || w > 0)
 		{
-			if (h< height  || width > w)
+			if (h < height  || width > w)
 			{
 				this.resize(w , h);
 
@@ -198,11 +230,27 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Effectue une translation de l'image 
 	 */
-	public void translate(int rowOffset, int colOffset)
-	{
-		// compl�ter		
-		
-	}
+	public void translate(int rowOffset, int colOffset) {
+		// compl�ter
+		AbstractPixel bufferImage[][] = new AbstractPixel[height - rowOffset][width - colOffset];
+		if (rowOffset == 0 && colOffset > 0) {
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j + colOffset < width; i++) {
+					bufferImage[i][j] = imageData[i][j + 1];
+				}
+			}
+		}
+		imageData = bufferImage; 
+		System.out.println("Test");
+	/*	if(rowOffset > 0 && colOffset == 0) {
+			for(int j = 0; j < width; j++) {
+				for(int i = 0; i + rowOffset < height; i++) {
+					imageData[i +1][j] = imageData[i][j];
+				}
+			}
+		}*/
+
+		}
 	
 	/**
 	 * Effectue un zoom autour du pixel (x,y) d'un facteur zoomFactor 
@@ -217,10 +265,29 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		
 		// compl�ter
 
-			int zoomhight = (int) (width/zoomFactor) ;
-			int zoomwidth = (int) (height/zoomFactor);
-		AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
-			int largeur = 0, longueur = 0;
+			int zoomHeight = (int) (height/zoomFactor);
+			int zoomWidth = (int) (width/zoomFactor);
+			AbstractPixel[][] newImageData = new AbstractPixel[zoomHeight][zoomWidth];
+
+			int someHeight = 0;
+			int someWidth = 0;
+
+			for(int i = 0; i < zoomHeight; i++) {
+
+			}
+
+
+			System.out.println("Test");
+
+
+
+
+			newImageData = null;
+
+			/*int zoomhight = (int) (height/zoomFactor) ;
+			int zoomwidth = (int) (width/zoomFactor);
+			AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
+			int largeur = 0, longueur = -1;
 
 
 			if ( (x==0 && y==0 ) || ( x==0 && y==height) || (x==width && y==height) || (x==width && y==0))
@@ -236,13 +303,13 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				largeur=0;
 				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++)
 				{
-					largeur++;
 					newimageData[longueur][largeur] = imageData[i][j];
+					largeur++;
 
 				}
 			}
 
-			this.imageData = newimageData ;
+			this.imageData = newimageData ;*/
 	}
 
 	/**
@@ -254,13 +321,27 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 * (sa valeur est entre min et max)
 	 */
 	public void replaceColor(AbstractPixel min, AbstractPixel max,
-			AbstractPixel newPixel) {
+			AbstractPixel newPixel) {	/* Fonctionne */
 		// compl�ter
-		
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				if(imageData[i][j].compareTo(min) == 1 || imageData[i][j].compareTo(max) == 1)
+					imageData[i][j] = newPixel;
+			}
+		}
 	}
 
-	public void inverser() {
+	public void inverser() {  /* Fonctionne */
 		// compl�ter
-				
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
+		int indexFinaleHeight = height - 1;
+		int indexFinalWidth = width - 1;
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				bufferImage[i][j] = imageData[indexFinaleHeight - i][indexFinalWidth- j];
+			}
+		}
+		imageData = bufferImage;
+		bufferImage = null;
 	}
 }
