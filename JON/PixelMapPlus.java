@@ -131,12 +131,32 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void rotate(int x, int y, double angleRadian)
 	{
-		// complï¿½ter
-		for (int i = 0; i < width; i++)  // verifier que lindice trouve est dans le tableau
+		AbstractPixel[][] pm = new  AbstractPixel[height][width];
+		for (int i = 0; i<height ; i++)
+		{
+			for (int j = 0; j<width; j++)
+			{
+				pm[i][j] = new ColorPixel();
+				
+			}
+		}
+		
+		
+		for (int i = 0; i < width; i++)  
 		{
 			for (int j=0 ; j < height; j++)
-			imageData[(int) ((j + i*Math.tan(angleRadian))/(Math.sin(angleRadian)*(Math.tan(angleRadian))+Math.cos(angleRadian)))][(int) (i/Math.cos(angleRadian)-((j+i*Math.tan(angleRadian))*Math.tan(angleRadian))/(Math.tan(angleRadian)*Math.sin(angleRadian)+Math.cos(angleRadian)))] = imageData[j][i];
+			{
+				
+				int Y = (int) ((j + i*Math.tan(angleRadian))/(Math.sin(angleRadian)*(Math.tan(angleRadian))+Math.cos(angleRadian)));
+				int X = (int) (i/Math.cos(angleRadian)-((j+i*Math.tan(angleRadian))*Math.tan(angleRadian))/(Math.tan(angleRadian)*Math.sin(angleRadian)+Math.cos(angleRadian)));
+				if (Y < height && Y>0 && X>0 && X < width )
+				{
+					pm[Y][X] = imageData[j][i];
+				}
+			
+			}
 		}
+		this.imageData = pm ;
 	}
 	
 	/**
@@ -235,7 +255,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
-		AbstractPixel[][] pm = imageData ;	
+		AbstractPixel[][] pm = new AbstractPixel[height][width] ;	
 		
 		for (int i =0; i < height; i++)
 		{
@@ -251,7 +271,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		{
 			for (int j=0 ; j < width ; j++)
 			{
-				if (i+rowOffset < height || j+colOffset < width)
+				if (i+rowOffset < height && j+colOffset < width)
 				{
 					pm[i+rowOffset][j+colOffset] = imageData[i][j];
 				}
