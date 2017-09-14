@@ -340,11 +340,26 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void replaceColor(AbstractPixel min, AbstractPixel max,
 			AbstractPixel newPixel) {
 		// complï¿½ter
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				if(imageData[i][j].compareTo(min) == 1 || imageData[i][j].compareTo(max) == 1)
+					imageData[i][j] = newPixel;
+			}
+		}
 		
 	}
 
 	public void inverser() {
 		// complï¿½ter
-				
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
+		int finalHeightIndex = height - 1, finalWidthIndex = width - 1;
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				bufferImage[i][j] = imageData[finalHeightIndex - i][finalWidthIndex - j];
+			}
+		}
+		imageData = bufferImage;
+		bufferImage = null;
 	}
 }

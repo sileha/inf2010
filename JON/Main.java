@@ -62,7 +62,7 @@ public class Main
 		gpmp.resize(gpmp.width/2, gpmp.height/2);
 		gpmp.convertToGrayImage();
 
-		PixelMapPlus bwpmp = new PixelMapPlus( pmp );
+		/*PixelMapPlus bwpmp = new PixelMapPlus( pmp );
 		bwpmp.zoomIn(pmp.getWidth(), 0, 2);
 		bwpmp.resize(bwpmp.width/2, bwpmp.height/2);
 		bwpmp.convertToBWImage();
@@ -73,18 +73,17 @@ public class Main
 		npmp.resize(npmp.width/2, npmp.height/2);
 		npmp.negate();
 
-		hpmp.translate( 100 ,100);
+		// hpmp.translate( 100 ,100);
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(hpmp, 0, 0);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		pmp.inverser();
+		pmp.inverser();*/
 	
-		String wName = "Edsger Dijkstra"; 
-	//	new DisplayImageWindow(wName, pmp);
-		//new DisplayImageWindow(wName, gpmp);
+		String wName = "Edsger Dijkstra";
+		//new DisplayImageWindow(wName, pmp);
+		new DisplayImageWindow(wName, gpmp);
 		//new DisplayImageWindow(wName, npmp);
 		new DisplayImageWindow(wName, hpmp);
-
 	}
 }
