@@ -26,7 +26,7 @@ public class ColorPixel extends AbstractPixel
 	ColorPixel(int[] rgb)
 	{
 		// compléter
-		this.rgb = new int[3];		/* Pq a completer? */
+		this.rgb = new int[3];		
 		this.rgb[0] = rgb[0];
 		this.rgb[1] = rgb[1];
 		this.rgb[2] = rgb[2];
@@ -39,10 +39,9 @@ public class ColorPixel extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 	    boolean pix = true;
-		int pixelMoyenne = (this.rgb[0] + this.rgb[1] + this.rgb[2]) / 3; /* Trouver comment faire avec '?' */
+		int pixelMoyenne = (this.rgb[0] + this.rgb[1] + this.rgb[2]) / 3;
 		if(pixelMoyenne <= 127)
 		    pix = false;
-		// boolean pix = (pixelMoyenne <= 127 ? true : false); *pour tester*
 
 		BWPixel bw = new BWPixel(pix);
 		return bw;

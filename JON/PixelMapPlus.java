@@ -160,8 +160,6 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void inset(PixelMap pm, int row0 , int col0 )
 	{
 		int longueur=0 , largeur = 0;
-		/*if (pm.getType() != this.getType())
-		{*/
 		pm = new PixelMap(this.getType(), pm);
 		
 	 for (int i= col0; i < width && largeur < pm.width ; i++,  largeur++)
@@ -184,8 +182,12 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			 for (int j = DebutLongueur ; j < FinLongueur ; j++ )
 			 {
 				 imageData[j][i] = this.getPixel(j,i).toColorPixel();
+
 			 }
+
 		 }
+
+
 	 }
 
 
@@ -211,7 +213,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				this.resize(w,h);
 				this.RemplirTableau(temp, 0, h, width);
 			}
-			else if ( h <height || w>width)
+			else if ( h<height || w>width)
 			{
 				int temp = width;
 				this.resize(w,h);
@@ -233,8 +235,31 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
-		// complï¿½ter		
+		AbstractPixel[][] pm = imageData ;	
 		
+		for (int i =0; i < height; i++)
+		{
+			for (int j=0 ; j < width ; j++)
+			{
+				pm[i][j] = new ColorPixel();
+				
+			}
+		}
+		
+		
+		for (int i =0; i < height; i++)
+		{
+			for (int j=0 ; j < width ; j++)
+			{
+				if (i+rowOffset < height || j+colOffset < width)
+				{
+					pm[i+rowOffset][j+colOffset] = imageData[i][j];
+				}
+				
+			}
+			
+		}
+		this.imageData = pm;
 	}
 	
 	/**
@@ -251,7 +276,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			int zoomhight = (int) (height/zoomFactor) ;
 			int zoomwidth = (int) (width/zoomFactor);
 		AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
-			int largeur = 0, longueur = -1;
+			int largeur = 0, longueur = 0;
 
 
 			if ( (x==0 && y==0 ) || ( x==0 && y==height) || (x==width && y==height) || (x==width && y==0))
@@ -261,18 +286,27 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 
 			}
 
-			for (int i= y - zoomhight/2; i < y + zoomhight/2 ; i++)
+			for (int i= y - zoomhight/2; i < y + zoomhight/2 ; i++, longueur++)
 			{
-				longueur++;
+				
 				
 				largeur=0;
-				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++)
+				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++, largeur++)
 				{ 
-					newimageData[longueur][largeur++] = imageData[i][j];
+					newimageData[longueur][largeur] = imageData[i][j];
 				}
 				
 			}
-			this.imageData = newimageData ;
+			
+			for (int i = 0 ; i < width && (i/zoomFactor < longueur) ; i++)
+			{
+				for (int j = 0; j < height && (j/zoomFactor < largeur) ; j++)
+				{
+					imageData[i][j] = newimageData[(int) (i/zoomFactor)][(int)(j/zoomFactor)];
+					
+				}
+				
+			}
 	}
 
 	/**
@@ -286,25 +320,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void replaceColor(AbstractPixel min, AbstractPixel max,
 			AbstractPixel newPixel) {
 		// complï¿½ter
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
-                if(imageData[i][j].compareTo(min) == 1 || imageData[i][j].compareTo(max) == 1)
-                    imageData[i][j] = newPixel;
-            }
-        }
+		
 	}
 
 	public void inverser() {
-        // complï¿½ter
-        AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
-        int finalHeightIndex = height - 1, finalWidthIndex = width - 1;
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                bufferImage[i][j] = imageData[finalHeightIndex - i][finalWidthIndex - j];
-            }
-        }
-        imageData = bufferImage;
-        bufferImage = null;
-    }
+		// complï¿½ter
+				
+	}
 }
