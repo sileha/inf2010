@@ -7,9 +7,9 @@ public class Main
 	 */
 	public static void main(String[] args) 
 	{
-		/**
+		/*
 		 * Exercice 1
-		 *
+		 */
 
 		PixelMap pmc = new PixelMap("./src/ed.ppm");
 		PixelMap pmg = pmc.toGrayImage();
@@ -36,10 +36,13 @@ public class Main
 		 * Exercice 2
 		 */
 		
-		PixelMapPlus pmp = new PixelMapPlus("./src/ed.ppm");
-		
+		/*PixelMapPlus pmp = new PixelMapPlus("./src/ed.ppm");
 
-		PixelMapPlus hpmp = new PixelMapPlus( pmp );
+		//pmp.convertToBWImage();
+		pmp.convertToGrayImage();
+		pmp.inverser();
+
+		/*PixelMapPlus hpmp = new PixelMapPlus( pmp );
 		hpmp.zoomIn(0, 0, 2);
 		hpmp.resize(hpmp.width/2, hpmp.height/2);	
 		int[] tMin = new int[3];
@@ -78,12 +81,12 @@ public class Main
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(hpmp, 0, 0);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		pmp.inverser();*/
+		pmp.inverser();
 	
 		String wName = "Edsger Dijkstra";
-		//new DisplayImageWindow(wName, pmp);
-		new DisplayImageWindow(wName, gpmp);
+		new DisplayImageWindow(wName, pmp);*/
+		//new DisplayImageWindow(wName, gpmp);
 		//new DisplayImageWindow(wName, npmp);
-		new DisplayImageWindow(wName, hpmp);
+		//new DisplayImageWindow(wName, hpmp);
 	}
 }

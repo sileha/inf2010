@@ -37,20 +37,20 @@ public class TransparentPixel extends AbstractPixel
 	
 	/**
 	 * Renvoie un pixel copie de type noir et blanc
+	 * @return bw : le pixel transformé
 	 */
 	public BWPixel toBWPixel()
 	{
 		// compléter
-        boolean pix = true;
         int pixelMoyenne = (this.rgba[0] + this.rgba[1] + this.rgba[2] + this.rgba[3]) / 4;
-        if(pixelMoyenne <= 127)
-            pix = false;
+		boolean pix = (pixelMoyenne <= 127 ? false : true);
         BWPixel bw = new BWPixel(pix);
         return bw;
 	}
 	
 	/**
 	 * Renvoie un pixel copie de type tons de gris
+	 * @return gp : le pixel transformé
 	 */
 	public GrayPixel toGrayPixel()
 	{
@@ -62,6 +62,7 @@ public class TransparentPixel extends AbstractPixel
 	
 	/**
 	 * Renvoie un pixel copie de type couleurs
+	 * @return cp : le pixel transformé
 	 */
 	public ColorPixel toColorPixel()
 	{
@@ -76,6 +77,7 @@ public class TransparentPixel extends AbstractPixel
 	
 	/**
 	 * Renvoie le negatif du pixel (255-pixel)
+	 * @return tp : le pixel tranformé
 	 */
 	public TransparentPixel Negative()
 	{
@@ -88,7 +90,10 @@ public class TransparentPixel extends AbstractPixel
         TransparentPixel tp = new TransparentPixel(rgba);
         return tp;
     }
-	
+
+	/**
+	 * Renvoie un pixel copie de couleur transparente
+	 */
 	public TransparentPixel toTransparentPixel()
 	{
 		// compléter

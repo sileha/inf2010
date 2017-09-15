@@ -119,7 +119,8 @@ public class FormValidator
 	
 	/**
 	 * Genere et retourne un string de longueur length avec des caracteres aleatoires
-	 * choisis entre A et Z
+	 * choisis entre A et Z. Le choix est effectué avec l'aide d'un switch case et
+	 * du nombre aléaltoire généré.
 	 * @param length : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
 	 */
 	private static String generateCode(int length) {

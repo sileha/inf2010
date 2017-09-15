@@ -52,82 +52,109 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	}
 	
 	/**
-	 * Genere le negatif d'une image
+	 * Genere le negatif d'une image. Un tableau de pixel 'temporaire'
+	 * est utilisé pour pouvoir parcourir et modifier tous les pixels
+	 * de l'image originale.
+	 * @param aucun
 	 */
 	public void negate()	/* Fonctionne */
 	{
 		// compl�ter
+		AbstractPixel bufferImageImage[][] = new AbstractPixel[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++)
-				imageData[i][j] = imageData[i][j].Negative();
+				bufferImageImage[i][j] = imageData[i][j].Negative();
 		}
+
+		imageData = bufferImageImage;
+		bufferImageImage = null; 
 	}
 	
 	/**
-	 * Convertit l'image vers une image en noir et blanc
+	 * Convertit l'image vers une image en noir et blanc. Un tableau de
+	 * pixel 'temporaire' est utilisé pour pouvoir parcourir et modifier
+	 * tous les pixels de l'image originale.
+	 * @param aucun
 	 */
 	public void convertToBWImage()	/* Fonctionne */
 	{
 		// compl�ter
-		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++)
-			buffer[i][j] = imageData[i][j].toBWPixel();
+			bufferImage[i][j] = imageData[i][j].toBWPixel();
 		}
 
-		imageData = buffer;
-		buffer = null;
+		imageData = bufferImage;
+		bufferImage = null;
 	}
 	
 	/**
-	 * Convertit l'image vers un format de tons de gris
+	 * Convertit l'image vers un format de tons de gris. Un tableau de
+	 * pixel 'temporaire' est utilisé pour pouvoir parcourir et modifier
+	 * tous les pixels de l'image originale.
+	 * @param aucun
 	 */
 	public void convertToGrayImage()	/* Fonctionne */
 	{
 		// compl�ter
-		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++)
-				buffer[i][j] = imageData[i][j].toGrayPixel();
+				bufferImage[i][j] = imageData[i][j].toGrayPixel();
 		}
 
-		imageData = buffer;
-		buffer = null;
+		imageData = bufferImage;
+		bufferImage = null;
 	}
 	
 	/**
-	 * Convertit l'image vers une image en couleurs
+	 * Convertit l'image vers une image en couleurs. Un tableau de pixel
+	 * 'temporaire' est utilisé pour pouvoir parcourir et modifier tous
+	 * les pixels de l'image originale.
+	 * @param aucun
 	 */
 	public void convertToColorImage()	/* Fonctionne */
 	{
 		// compl�ter
-		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++)
-				buffer[i][j] = imageData[i][j].toColorPixel();
+				bufferImage[i][j] = imageData[i][j].toColorPixel();
 		}
-		imageData = buffer;
-		buffer = null ;
+		imageData = bufferImage;
+		bufferImage = null ;
 	}
-	
+
+	/**
+	 * Convertit l'image vers une image transparente. Un tableau de pixel
+	 * 'temporaire' est utilisé pour pouvoir parcourir et modifier tous les
+	 * pixels de l'image originale.
+	 * @param aucun
+	 */
 	public void convertToTransparentImage()
 	{
 		// compl�ter
-		AbstractPixel buffer[][] = new AbstractPixel[height][width];
+		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++)
-				buffer[i][j] = imageData[i][j].toTransparentPixel();
+				bufferImage[i][j] = imageData[i][j].toTransparentPixel();
 		}
-		imageData = buffer;
-		buffer = null;
+		imageData = bufferImage;
+		bufferImage = null;
 	}
 	
 	/**
-	 * Fait pivoter l'image de 10 degres autour du pixel (row,col)=(0, 0)
-	 * dans le sens des aiguilles d'une montre (clockWise == true)
-	 * ou dans le sens inverse des aiguilles d'une montre (clockWise == false).
-	 * Les pixels vides sont blancs.
-	 * @param clockWise : Direction de la rotation 
+	 * Fait pivoter l'image autour des pixels dont les coordonées
+	 * correspondent à x et y selon un angle en radian (angleRadian).
+	 * Un tableau de pixels 'temporaire' et remplis de pixels de couleurs
+	 * est utilisé pour pouvoir effectuer la rotation. La matrice de rotation
+	 * fournie dans l'énoncé est également utilisée pour parcourir l'image
+	 * originale pour cibler les pixels à déplacer.
+	 * @param x : la position en x du pixel autour duquel la translation sera
+	 *            effectuée
+	 * @param y : la position en y
+	 * @param angleRadian : l'angle (en radian) de rotation
 	 */
 	public void rotate(int x, int y, double angleRadian)
 	{
@@ -160,7 +187,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	}
 	
 	/**
-	 * Modifie la longueur et la largeur de l'image 
+	 * Modifie la longueur et la largeur de l'image en changeant les
+	 * attributs 'height' et 'width'.
 	 * @param w : nouvelle largeur
 	 * @param h : nouvelle hauteur
 	 */
@@ -175,7 +203,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	}
 	
 	/**
-	 * Insert pm dans l'image a la position row0 col0
+	 * Insert pm dans l'image a la position row0 col0. Parcours imageData
+	 * pour insérer pm à la bonne position.
+	 * @param pm : l'image à inserer dans l'image de départ (imageData)
+	 * @param row0 : la rangée à partir de laquelle l'image sera insérée
+	 * @param col0 : la colonne à partir de laquelle l'image sera insérée
 	 */
 	public void inset(PixelMap pm, int row0 , int col0 )
 	{
@@ -194,7 +226,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 	}
 	 }
 
-
+	/**
+	 * Méthode de plus. Remplis le tableau à partir des positions 'débutLongueur'
+	 * et 'debutLargeur' jusqu'au positions 'FingLougueur' et 'FinLargeur'.
+	 * @param DebutLongueur : la position initiale en y (selon la largeur)
+	 * @param DebutLargeur : la position intiale en x (selon la longueur)
+	 * @param FinLongueur : la position finale en y (selon la largeur)
+	 * @param FinLargeur : la position finale en x (selon la longueur)
+	 */
 	 public void RemplirTableau(int DebutLongueur,int DebutLargeur, int FinLongueur, int FinLargeur )
 	 {
 		 for (int i = DebutLargeur; i < FinLargeur; i++)
@@ -212,7 +251,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 
 
 	/**
-	 * Decoupe l'image 
+	 * Decoupe l'image selon la hauteur (h) et la largeur (h) spécifiée.
+	 * Les pixels qui se trouvent à l'extérieur de la région de découpage
+	 * sont perdus.
+	 * @param h : la hauteur à laquelle le découpage sera fait
+	 * @param w : la largeur à laquelle le découpage sera fait
 	 */
 	public void crop(int h, int w)
 	{
@@ -251,7 +294,15 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	}
 	
 	/**
-	 * Effectue une translation de l'image 
+	 * Effectue une translation de l'image. Pour effectuer cette translation,
+	 * une image 'temporaire' est créer dans laquelle des pixels de couleurs
+	 * seront déjà présents. On attribue par la suite les pixels correspondants
+	 * de l'image originale à cette image 'temporaire' pour enfin attribuer
+	 * celle-ci à imageData.
+	 * @param rowOffset : Le décalage qui sera effectué sur les rangées du
+	 *                    du tableau de pixel
+	 * @param colOffset : Le décalage effectué sur les colonnes du tableau
+	 *             		  de pixel
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
@@ -298,24 +349,19 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		AbstractPixel[][] newimageData = new AbstractPixel[zoomhight][zoomwidth];
 			int largeur = 0, longueur = 0;
 
-
 			if ( (x==0 && y==0 ) || ( x==0 && y==height) || (x==width && y==height) || (x==width && y==0))
 			{
 				x = width/2;
 				y= height/2;
-
 			}
 
 			for (int i= y - zoomhight/2; i < y + zoomhight/2 ; i++, longueur++)
 			{
-				
-				
 				largeur=0;
 				for (int j= x - zoomwidth/2 ; j< x+zoomwidth/2 ; j++, largeur++)
 				{ 
 					newimageData[longueur][largeur] = imageData[i][j];
 				}
-				
 			}
 			
 			for (int i = 0 ; i < width && (i/zoomFactor < longueur) ; i++)
@@ -323,15 +369,15 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 				for (int j = 0; j < height && (j/zoomFactor < largeur) ; j++)
 				{
 					imageData[i][j] = newimageData[(int) (i/zoomFactor)][(int)(j/zoomFactor)];
-					
 				}
-				
 			}
 	}
 
 	/**
 	 * Effectue un remplacement de tout les pixels dont la valeur est entre min et max 
 	 * avec newPixel
+	 * La méthode parcours l'image et compare to les pixels avec 'min' et 'max' avec
+	 * l'aide de la méthode compareTo(..).
 	 * @param min : La valeur miniale d'un pixel
 	 * @param max : La valeur maximale d'un pixel  
 	 * @param newPixel : Le pixel qui remplacera l'ancienne couleur 
@@ -349,17 +395,25 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		
 	}
 
+	/**
+	 * La méthode inverse l'image en effectuant une translation des pixels de celle-ci
+	 * du haut vers le bas. Pour effectuer cette translation, la méthode parcours
+	 * l'image et copie les pixels correspondant dans une image 'temporaire' pour
+	 * ensuite attribuer cette image 'temporaire' à imageData.
+	 * @param aucun
+	 */
+
 	public void inverser() {
 		// complï¿½ter
-		AbstractPixel bufferImage[][] = new AbstractPixel[height][width];
-		int finalHeightIndex = height - 1, finalWidthIndex = width - 1;
+		AbstractPixel bufferImageImage[][] = new AbstractPixel[height][width];
+		int finalHeightIndex = height - 1;
 
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				bufferImage[i][j] = imageData[finalHeightIndex - i][finalWidthIndex - j];
+				bufferImageImage[i][j] = imageData[finalHeightIndex - i][j];
 			}
 		}
-		imageData = bufferImage;
-		bufferImage = null;
+		imageData = bufferImageImage;
+		bufferImageImage = null;
 	}
 }
