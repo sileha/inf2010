@@ -52,7 +52,6 @@ public class BWPixel extends AbstractPixel
 	
 	/**
 	 * Renvoie un pixel copie de type tons de gris
-	 * @return gp : le pixel tansformé
 	 */
 	public GrayPixel toGrayPixel()
 	{
@@ -64,7 +63,6 @@ public class BWPixel extends AbstractPixel
 	
 	/**
 	 * Renvoie un pixel copie de type couleurs
-	 * @return cp : le pixel transformé
 	 */
 	public ColorPixel toColorPixel()
 	{
@@ -74,11 +72,7 @@ public class BWPixel extends AbstractPixel
 		ColorPixel cp = new ColorPixel( rgb );
 		return cp;
 	}
-
-	/**
-	 * Renvoie un pixel copie de type transparent
-	 * @return cp : le pixel copier est transformé
-	 */
+	
 	public TransparentPixel toTransparentPixel()
 	{
 		int pixelVal = (pixel ? 255 : 0);

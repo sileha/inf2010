@@ -49,7 +49,12 @@ public class GrayPixel  extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 		// compléter
-		boolean pixel = (this.pixel > 127 ? true : false);
+
+		boolean pixel = false;
+		if (this.pixel > 127)
+		{
+			pixel= true;
+		}
 		return new BWPixel(pixel);
 	}
 	
@@ -64,7 +69,6 @@ public class GrayPixel  extends AbstractPixel
 	
 	/**
 	 * Renvoie un pixel copie de type couleurs
-	 * @return cp : le pixel transformé
 	 */
 	public ColorPixel toColorPixel()
 	{
@@ -74,11 +78,7 @@ public class GrayPixel  extends AbstractPixel
 		ColorPixel cp = new ColorPixel( rgb );
 		return cp;
 	}
-
-	/**
-	 * Renvoie un pixel copie de type transparent
-	 * @return cp : le pixel transformé
-	 */
+	
 	public TransparentPixel toTransparentPixel()
 	{
 		// compléter

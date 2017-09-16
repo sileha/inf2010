@@ -7,9 +7,9 @@ public class Main
 	 */
 	public static void main(String[] args) 
 	{
-		/*
+		/**
 		 * Exercice 1
-		 */
+		 *
 
 		PixelMap pmc = new PixelMap("./src/ed.ppm");
 		PixelMap pmg = pmc.toGrayImage();
@@ -36,13 +36,10 @@ public class Main
 		 * Exercice 2
 		 */
 		
-		/*PixelMapPlus pmp = new PixelMapPlus("./src/ed.ppm");
+		PixelMapPlus pmp = new PixelMapPlus("./src/ed.ppm");
+		
 
-		//pmp.convertToBWImage();
-		pmp.convertToGrayImage();
-		pmp.inverser();
-
-		/*PixelMapPlus hpmp = new PixelMapPlus( pmp );
+		PixelMapPlus hpmp = new PixelMapPlus( pmp );
 		hpmp.zoomIn(0, 0, 2);
 		hpmp.resize(hpmp.width/2, hpmp.height/2);	
 		int[] tMin = new int[3];
@@ -64,8 +61,8 @@ public class Main
 		gpmp.zoomIn(0, gpmp.height, 2);
 		gpmp.resize(gpmp.width/2, gpmp.height/2);
 		gpmp.convertToGrayImage();
-
-		/*PixelMapPlus bwpmp = new PixelMapPlus( pmp );
+		
+		PixelMapPlus bwpmp = new PixelMapPlus( pmp );
 		bwpmp.zoomIn(pmp.getWidth(), 0, 2);
 		bwpmp.resize(bwpmp.width/2, bwpmp.height/2);
 		bwpmp.convertToBWImage();
@@ -76,17 +73,16 @@ public class Main
 		npmp.resize(npmp.width/2, npmp.height/2);
 		npmp.negate();
 
-		// hpmp.translate( 100 ,100);
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(hpmp, 0, 0);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		pmp.inverser();
+		hpmp.inverser();
 	
-		String wName = "Edsger Dijkstra";
-		new DisplayImageWindow(wName, pmp);*/
-		//new DisplayImageWindow(wName, gpmp);
-		//new DisplayImageWindow(wName, npmp);
-		//new DisplayImageWindow(wName, hpmp);
+		String  wName = "Edsger Dijkstra";
+		new DisplayImageWindow(wName, pmp);
+		new DisplayImageWindow(wName, gpmp);
+		new DisplayImageWindow(wName, npmp);
+		new DisplayImageWindow(wName, hpmp);
 	}
 }
