@@ -77,7 +77,7 @@ public class Main
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(hpmp, 0, 0);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		hpmp.inverser();
+		pmp.inverser();
 	
 		String  wName = "Edsger Dijkstra";
 		new DisplayImageWindow(wName, pmp);

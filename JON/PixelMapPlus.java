@@ -132,6 +132,8 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void rotate(int x, int y, double angleRadian)
 	{
 		AbstractPixel[][] pm = CreerImage(height,width);
+		double cos = Math.cos(angleRadian);
+		double sin = Math.sin(angleRadian);
 		
 		
 		for (int i = 0; i < width; i++)  
@@ -139,13 +141,12 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			for (int j=0 ; j < height; j++)
 			{
 				
-				int Y = (int) ((j + i*Math.tan(angleRadian))/(Math.sin(angleRadian)*(Math.tan(angleRadian))+Math.cos(angleRadian)));
-				int X = (int) (i/Math.cos(angleRadian)-((j+i*Math.tan(angleRadian))*Math.tan(angleRadian))/(Math.tan(angleRadian)*Math.sin(angleRadian)+Math.cos(angleRadian)));
-				if (Y < height && Y>0 && X>0 && X < width )
+				int Y = (int) (-i*sin+j*cos+x*sin-y*cos+y);
+				int X = (int) (i*cos +j*sin -x*cos-y*sin+x);
+				if (Y>=0 && X>=0 && X<width && Y< height )
 				{
-					pm[Y][X] = imageData[j][i];
+					pm[j][i] = imageData[Y][X];
 				}
-			
 			}
 		}
 		this.imageData = pm ;
@@ -241,43 +242,23 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 
 		if ( h> 0  && w > 0)
 		{
-			if (h< height  && width > w)
-			{
-				this.resize(w , h);
-
-			}
-
-			else if (h > height && w < width)
-
-			{
-				int temp = height ;
-				this.resize(w,h);
-				this.RemplirTableau(temp, 0, h, width);
-			}
+			AbstractPixel[][] pm = CreerImage(h, w);
 			
-			else if ( h<height && w>width)
+			for (int i=0; i< h ; i++)
 			{
-				int temp = width;
-				this.resize(w,h);
-				this.RemplirTableau(0, temp,height,width);
-			}
-				else if ( h > height && w > width)
-				{
-				AbstractPixel[][] pm = CreerImage(h, w);
-				 
-				int temp1 = (h - height)/2;
-				int temp2 = (w - width)/2;
-				
-				for (int i=temp1 ; i< height ; i++)
+				for (int j = 0; j<w ; j++)
 				{
 					
-					for (int j=temp2; j< width ; j++)
+					if (i>=height || j>= width)
 					{
-						pm[i][j] = imageData[i-temp1][j-temp2];
+						pm[i][j] = new ColorPixel(); 
 						
 					}
+					else { pm[i][j] = imageData[i][j];  }
+					
 				}
 				
+			}
 					imageData = pm ;
 					height = h;
 					width = w ;
@@ -285,7 +266,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 			 }
 			    }
 		
-		}
+
 		
 	
 	/**
