@@ -119,8 +119,8 @@ public class FormValidator
 	
 	/**
 	 * Genere et retourne un string de longueur length avec des caracteres aleatoires
-	 * choisis entre A et Z. Le choix est effectué avec l'aide d'un switch case et
-	 * du nombre aléaltoire généré.
+	 * choisis entre A et Z. Le choix est effectuï¿½ avec l'aide d'un switch case et
+	 * du nombre alï¿½altoire gï¿½nï¿½rï¿½.
 	 * @param length : longueur de la chaine de caractere a generer (inferieur ou egal a 10)
 	 */
 	private static String generateCode(int length) {
@@ -232,8 +232,7 @@ public class FormValidator
 		int[] charTransform = new int[ nb ];
 		
 		Random generator = new Random( System.nanoTime() );
-		for (int i=0; i< nb ; i++)
-		{
+		for (int i=0; i< nb ; i++) {
 			int newnbre = generator.nextInt(11);
 			charTransform[i] = newnbre;
 		}
