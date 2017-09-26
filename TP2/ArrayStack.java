@@ -4,9 +4,6 @@ public class ArrayStack<AnyType>
 {
     private static final int INITIAL_SIZE = 10;
     private static final int DEFAULT_RESIZE_FACTOR = 2;
-	private static final AnyType[][] Anytype = null;
-	private static final AnyType[][] Objet = null;
-
     private int size = 0; // Nombre d'éléments dans la pile.
     private AnyType[] table;
 
@@ -18,10 +15,14 @@ public class ArrayStack<AnyType>
 
     // Enlève l'élément au sommet de la pile et le renvoie.
     // Complexité asymptotique: O(1)
-    public AnyType pop() throws EmptyStackException
+    public AnyType pop() 
     {
-    	AnyType temp =  table[0];
-    	table[0] = null;
+    	if (empty())
+    	{
+    		throw new EmptyStackException();
+    	}
+    	AnyType temp =  table[size-1];
+    	table[size-1] = null;
     	size--;
        return temp;
     }
@@ -36,7 +37,7 @@ public class ArrayStack<AnyType>
     		resize(DEFAULT_RESIZE_FACTOR);
     	}
     	
-        table[0] = element;
+        table[size++] = element;
     	
     }
 
@@ -45,7 +46,9 @@ public class ArrayStack<AnyType>
     // Complexité asymptotique: O(1)
     public AnyType peek()
     {
-       return table[0];
+    	if  (empty())
+    	{return null;}
+       return table[size-1];
     }
 
     // Renvoie le nombre d'éléments dans la pile.
@@ -59,8 +62,8 @@ public class ArrayStack<AnyType>
     @SuppressWarnings("unchecked")
     private void resize(int resizeFactor)
     {
-    	AnyType[] temp =  (AnyType[]) new Objet[resizeFactor*size];
-        for (int i = 0; i< resizeFactor*size; i++ )
+    	AnyType[] temp =  (AnyType[]) new Object[resizeFactor*size];
+        for (int i = 0; i< size; i++ )
         {
         	temp[i] = table[i];
         }

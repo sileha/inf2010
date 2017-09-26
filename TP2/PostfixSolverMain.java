@@ -56,7 +56,36 @@ public class PostfixSolverMain
         ArrayStack<Boolean> stack = new ArrayStack<>();
         //L'expression est séparée en tokens selon les espaces.
         for (String token : input.split("\\s")) {
+        	if (token.equals("1"))
+        	{ stack.push(true); }
+        	
+        	else if (token.equals("0"))
+        	{ stack.push(false);}
+        	
+        	else if (token.equals("not"))
+        	{ stack.push(!stack.pop());}
+        	
+        	else if (token.equals("and"))
+        	{
+        		boolean temp1 = stack.pop();
+        		boolean temp2 = stack.pop();
+        		if (temp1 ==true && temp2 == true)
+        		{stack.push(true);}
+        		
+        		else {stack.push(false);}
+        	}
+        	
+        	else if (token.equals("or"))
+        	{
+        		boolean temp1 = stack.pop();
+        		boolean temp2 = stack.pop();
+        		if (temp1 ==false && temp2 == false)
+        		{stack.push(false);}
+        		
+        		else {stack.push(true);}
+        	}
+        	
         }
-
+        	return stack.pop();
     }
 }

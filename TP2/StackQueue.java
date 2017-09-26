@@ -9,7 +9,7 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	@SuppressWarnings("unchecked")
 	public StackQueue()
 	{
-        // À compléter
+       
 	}
 	
 	// Indique si la file est vide.
@@ -29,21 +29,28 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	// Complexité asymptotique: O(1) (ammorti)
 	public AnyType peek()
     {
-        // À compléter
+        if (empty())
+        {return null;}
+        
+        else 
+        {
+        	outStack.push(inStack.lastElement()) ;
+        	return outStack.pop();
+        }
 	}
 	
 	// Retire l'élément en tête de file.
 	// Complexité asymptotique: O(1) (ammorti)
 	public void pop() throws EmptyQueueException
 	{
-        // À compléter
+	        	inStack.remove(size -1);
 	}
 	
 	// Ajoute un élément a la fin de la file.
 	// Complexité asymptotique: O(1)
 	public void push(AnyType item)
 	{
-        // À compléter
+       inStack.push(item);
 	}
 }
 
