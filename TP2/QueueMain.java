@@ -12,6 +12,8 @@ public class QueueMain
 			stackQueue.push(pushCounter++);
 		}
 		
+		
+		
 		if(stackQueue.size() != COUNT * 2) {
 			System.out.println("Erreur: La taille de la file n'est pas égale à " + COUNT * 2 + " après avoir ajouté " + COUNT * 2 + " éléments.");
 		}

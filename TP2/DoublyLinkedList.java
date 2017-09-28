@@ -85,7 +85,7 @@ public class DoublyLinkedList<AnyType>
     private Node<AnyType> getNodeAt(int index)
     {
     	Node<AnyType> temp = front;
-       for (int i = 1; i<index ;i++)
+       for (int i = 0 ; i < index ;i++)
        {
     	temp = temp.getNext();   
        }
@@ -94,46 +94,64 @@ public class DoublyLinkedList<AnyType>
 
     // Retourne l'élément à l'indice donné.
     // Complexité asymptotique: O(n)
-    public AnyType getAt(int index) throws IndexOutOfBoundsException // Question : est ce que on doit borner l'exception
+    public AnyType getAt(int index) throws IndexOutOfBoundsException 
     {
+    	if (index < 0 || index > size)
+    	{
+    		throw new IndexOutOfBoundsException();
+    	}
         return getNodeAt(index).getValue();
     }
 
     // Retire l'élément à la fin de la liste.
     // Complexité asymptotique: O(1)
-    public void popBack() throws EmptyListException
+    public void popBack() throws EmptyListException 
     {
+    	if (empty())
+    	{
+    		throw new EmptyListException();
+    	}
+    	
         if (size >= 2)
         {
-        	back = back.getPrev();
-        	back.setNext(null);
-        	size--;
+        	Node<AnyType> temp = back.getPrev();
+        	temp.setNext(null);
+        	back.setPrev(null);
+        	back = temp;                    // a voir
         }
-        if (size == 1)
+        if (size <= 1)
         {
      	   front = null;
-     	   back = null ;
-     	   size--;
+     	   back = null ;  	   
         }
+        
+        size--;
     }
 
     // Retire l'élément au début de la liste.
     // Complexité asymptotique: O(1)
     public void popFront() throws EmptyListException
     {
+    	if (empty())
+    	{
+    		throw new EmptyListException();
+    		
+    	}
        if (size >= 2)
        {
-    	   front = front.getNext();
-    	   front.setPrev(null);
-    	   size--;
+    	   Node<AnyType> temp = front.getNext();
+    	   temp.setPrev(null);
+    	   front.setNext(null);
+    	   front = temp;
+    	   
        }
        if (size == 1)
        {
     	   front = null;
     	   back = null ;
-    	   size--;
        }
        
+       size--;
     }
 
     // Retire l'élément à l'indice donné.
@@ -141,18 +159,53 @@ public class DoublyLinkedList<AnyType>
     public void removeAt(int index) throws IndexOutOfBoundsException
     {
     
+    	if (index < 0 || index > size )
+    	{
+    		
+    		throw new IndexOutOfBoundsException();
+    	}
     	Node<AnyType> objet = getNodeAt(index);
-    	objet.getPrev().setNext(objet.getNext());
-    	objet.getNext().setPrev(objet.getPrev());
+    	if (index == 0)
+    	{
+    		front = front.getNext();
+    		objet.setNext(null);
+    		front.setPrev(null);
+    	}
+    	else if (index == size)
+    	{
+    		back = back.getPrev();
+    		objet.setPrev(null);
+    		back.setNext(null);	
+    	}
+    	else 
+    	{
+    		objet.getPrev().setNext(objet.getNext());
+    		objet.getNext().setPrev(objet.getPrev());
+    	}
+    	
+    	size--;
     }
 
     // Ajoute un élément à la fin de la liste.
     // Complexité asymptotique: O(1)
     public void pushBack(AnyType item)
     {
-		Node<AnyType> nouveauNode =  new Node (item, back,null) ;
+		Node<AnyType> nouveauNode =  new Node (item, null ,null) ;
+		if (size >= 1)
+		{
+		nouveauNode.setPrev(back);
+		back.setNext(nouveauNode);
 		back = nouveauNode;
-		back.getPrev().setNext(back);
+		if (size == 1)
+			{
+				front.setNext(back);
+			}
+		}
+		else 
+		{ 
+			back = nouveauNode;
+			front = nouveauNode;
+		}
 		size++;
     }
 
@@ -160,9 +213,25 @@ public class DoublyLinkedList<AnyType>
     // Complexité asymptotique: O(1)
     public void pushFront(AnyType item)
     {
-    	Node<AnyType> nouveauNode =  new Node (item, null ,front) ;
-    	front = nouveauNode ;
-    	front.getNext().setPrev(front);
+    	Node<AnyType> nouveauNode =  new Node (item, null ,null) ;
+    	
+    	if (size >= 1)
+    	{
+    	front.setPrev(nouveauNode);
+    	nouveauNode.setNext(front);
+    	front = nouveauNode;
+    	if (size == 1)
+    		{
+    			back.setPrev(front);
+    		}
+    	
+    	}
+    	else
+    	{
+    		front = nouveauNode;
+    		back = nouveauNode;
+    	}
+    	
     	size++;
     }
 
@@ -170,9 +239,22 @@ public class DoublyLinkedList<AnyType>
     // Complexité asymtotique: O(n)
     public void insertAt(AnyType item, int index) throws IndexOutOfBoundsException
     {
+    	if (index < 0 || index > size)
+    	{
+    		throw new IndexOutOfBoundsException();
+    	}
     	Node<AnyType> temp = getNodeAt(index);
     	Node<AnyType> nouveauNode =  new Node (item, temp.getPrev() ,temp);
     	temp.setPrev(nouveauNode);
+    	if (index > 0)
+    	{
+    		nouveauNode.getPrev().setNext(nouveauNode);
+    	}
+    	if (index ==  0)
+    	{
+    		front = nouveauNode;
+    	}
+    	
     	size++;
     }
 }

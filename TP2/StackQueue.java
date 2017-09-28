@@ -3,8 +3,8 @@ import java.util.Stack;
 public class StackQueue<AnyType> implements Queue<AnyType>
 {
 	private int size = 0; // Nombre d'éléments dans la file.
-	private Stack<AnyType> inStack;
-	private Stack<AnyType> outStack;
+	private Stack<AnyType> inStack =  new Stack<AnyType>();
+	private Stack<AnyType> outStack =  new Stack<AnyType>();
    
 	@SuppressWarnings("unchecked")
 	public StackQueue()
@@ -30,12 +30,14 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	public AnyType peek()
     {
         if (empty())
-        {return null;}
+        {
+        	return null;
+        }
         
         else 
         {
-        	outStack.push(inStack.lastElement()) ;
-        	return outStack.pop();
+        	outStack.push(inStack.firstElement()) ;
+        	return outStack.peek();
         }
 	}
 	
@@ -43,7 +45,12 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	// Complexité asymptotique: O(1) (ammorti)
 	public void pop() throws EmptyQueueException
 	{
-	        	inStack.remove(size -1);
+		if (empty())
+		{
+			throw new EmptyQueueException()	;
+		}
+		inStack.remove(0);
+		size--;
 	}
 	
 	// Ajoute un élément a la fin de la file.
@@ -51,6 +58,7 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	public void push(AnyType item)
 	{
        inStack.push(item);
+       size++;
 	}
 }
 

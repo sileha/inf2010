@@ -24,7 +24,7 @@ public class ListMain
         }
 
         if(queue.size() != COUNT * 2) {
-            System.out.println("Erreur: La taille de la liste n'est pas Ã©gale Ã  " + COUNT * 2 + " aprÃ¨s avoir ajoutÃ© " + COUNT * 2 + " Ã©lÃ©ments.");
+            System.out.println("Erreur: La taille de la liste n'est pas égale à " + COUNT * 2 + " après avoir ajouté " + COUNT * 2 + " éléments.");
         }
 
         for(int i = 0; i < COUNT; i++) {
@@ -44,7 +44,7 @@ public class ListMain
 
         for(int i = 0; i < COUNT * 3.5; i++) {
             if(queue.peekBack() != popCounter) {
-                System.out.println("Erreur: l'ordre des Ã©lÃ©ments n'est pas respectÃ©.");
+                System.out.println("Erreur: l'ordre des éléments n'est pas respecté.");
                 return false;
             }
 
@@ -59,7 +59,7 @@ public class ListMain
         }
 
         if(!queue.empty()) {
-            System.out.println("Erreur: la liste devrait Ãªtre vide, mais elle ne l'est pas.");
+            System.out.println("Erreur: la liste devrait être vide, mais elle ne l'est pas.");
             return false;
         }
 
@@ -89,13 +89,13 @@ public class ListMain
         }
 
         if (stack.size() != COUNT) {
-            System.out.println("Erreur: La taille de la liste n'est pas Ã©gale a " + COUNT + " aprÃ¨s avoir ajoutÃ© " + COUNT + " Ã©lÃ©ments");
+            System.out.println("Erreur: La taille de la liste n'est pas égale a " + COUNT + " après avoir ajouté " + COUNT + " éléments");
         }
 
         for (int i = 0; i < COUNT; i++) {
             try {
                 if (stack.peekBack() != pushCounter) {
-                    System.out.println("Erreur: l'ordre des Ã©lÃ©ments n'est pas respectÃ©.");
+                    System.out.println("Erreur: l'ordre des éléments n'est pas respecté.");
                     return false;
                 }
                 stack.popBack();
@@ -109,7 +109,7 @@ public class ListMain
         }
 
         if (!stack.empty()) {
-            System.out.println("Erreur: la liste devrait Ãªtre vide, mais elle ne l'est pas.");
+            System.out.println("Erreur: la liste devrait être vide, mais elle ne l'est pas.");
             return false;
         }
 
@@ -137,13 +137,13 @@ public class ListMain
         }
 
         if (list.size() != COUNT) {
-            System.out.println("Erreur: La taille de la liste n'est pas Ã©gale Ã  " + COUNT + " aprÃ¨s avoir ajoutÃ© " + COUNT + " Ã©lÃ©ments");
+            System.out.println("Erreur: La taille de la liste n'est pas égale à " + COUNT + " après avoir ajouté " + COUNT + " éléments");
         }
 
         try {
             list.insertAt(-1, 0);
             if (list.peekFront() != -1) {
-                System.out.println("Erreur: insertAt() n'insere pas la valeur Ã  la bonne position.");
+                System.out.println("Erreur: insertAt() n'insere pas la valeur à la bonne position.");
                 return false;
             }
             list.popFront();
@@ -160,7 +160,7 @@ public class ListMain
         try {
             for (int i = 0; i < COUNT; ++i) {
                 if (list.getAt(i) != i * 2) {
-                    System.out.println("Erreur: getAt() ne retourne pas la bonne valeur pour l'indice donnÃ©.");
+                    System.out.println("Erreur: getAt() ne retourne pas la bonne valeur pour l'indice donné.");
                     return false;
                 }
             }
@@ -173,7 +173,7 @@ public class ListMain
         try {
             list.removeAt(COUNT - 3);
             if (list.getAt(COUNT - 3) != (COUNT - 2) * 2 || list.size() != COUNT-1) {
-                System.out.println("Erreur: removeAt() n'a pas bien retire l'element Ã  l'indice donnÃ©.");
+                System.out.println("Erreur: removeAt() n'a pas bien retire l'element à l'indice donné.");
                 return false;
             }
         }
@@ -235,7 +235,7 @@ public class ListMain
         }
 
         if(!list.empty()) {
-            System.out.println("Erreur: la liste devrait Ãªtre vide, mais elle ne l'est pas.");
+            System.out.println("Erreur: la liste devrait être vide, mais elle ne l'est pas.");
             return false;
         }
 
