@@ -1,7 +1,5 @@
 
 import java.util.EmptyStackException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -77,25 +75,27 @@ public class StackMain
 
     }
 
-    // Utilise une ArrayStack<String> pour inverser l'ordre des mots dans la phrase
-    // de départ.
+    /**
+     * Retourne la string passée en paramètre inversée.
+     * @param input: La string qui sera inversée.
+     * @return La string inversée.
+     */
     public static String reverseString(String input) {
         String[] words = input.split("\\s");
         String output = "";
 
         ArrayStack<String> stack = new ArrayStack<>();
-         for (int i=0; i < words.length ; i++)
-         {
-        	 stack.push(words[i]);
-         }
-         
-         output +=  stack.pop();
-         for (int i=0; i<words.length-1 ; i++)
-         {
-        	 output += " " + stack.pop();
-         }
-		 
+
+        /** On ajoute le premier mot au préalable pour plus que la string ne soit vide */
+        int finalPos = words.length - 1;
+        output = output.concat(words[finalPos]);
+
+        for(int i = finalPos - 1; i >= 0; i--) {
+            stack.push(words[i]);
+            output = output.concat(" " + stack.peek());
+        }
         return output;
+
     }
 
 }

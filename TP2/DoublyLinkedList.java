@@ -56,59 +56,70 @@ public class DoublyLinkedList<AnyType>
         return size;
     }
 
-    // Retourne l'élément à la fin de la liste.
-    // Retourne null si la liste est vide.
-    // Complexité asymptotique: O(1)
-    public AnyType peekBack()
+	/**
+	 * Retourne l'élément situé à la fin de la pile.
+	 * @return back: L'élément à la fin de la pile.
+	 */
+	public AnyType peekBack()
     {
-    	if (empty())
-    	{
+    	/** Si la pile est vide, retourne null */
+    	if (empty()) {
     		return null;
     	}
        return back.getValue();
     }
 
-    // Retourne l'élément au début de la liste.
-    // Retourne null si la liste est vide.
-    // Complexité asymptotique: O(1)
+	/**
+	 * Retourne l'élément situé au début de la pile.
+	 * @return front: L'élément au début de la pile.
+	 */
     public AnyType peekFront()
     {
-    	if (empty())
-    	{
+    	/** Si la pile est vide, retourne null */
+    	if (empty()) {
     		return null;
     	}
        return front.getValue();
     }
 
-    // Retourne le noeud à l'indice donné.
-    // Complexité asymptotique: O(n)
-    private Node<AnyType> getNodeAt(int index)
+	/**
+	 * Retourne le noeud à l'index spécifié.
+	 * @param index: L'index du noeud que l'on désire retourner.
+	 * @return temp: Le noeud que l'on retourne.
+	 */
+	private Node<AnyType> getNodeAt(int index)
     {
     	Node<AnyType> temp = front;
-       for (int i = 0 ; i < index ;i++)
-       {
+
+       for (int i = 0 ; i < index ;i++) {
     	temp = temp.getNext();   
        }
        return temp;
     }
 
-    // Retourne l'élément à l'indice donné.
-    // Complexité asymptotique: O(n)
+	/**
+	 * Retourne la valeur stocké à l'intérieur du noeud à l'index spécifié.
+	 * @param index: L'index du noeud voulu.
+	 * @return La valeur du noeud à l'index.
+	 * @throws IndexOutOfBoundsException
+	 */
     public AnyType getAt(int index) throws IndexOutOfBoundsException 
     {
-    	if (index < 0 || index > size)
-    	{
+    	/** Lance une exception si l'index est négatif ou plus petit que la taille de la liste */
+    	if (index < 0 || index > size) {
     		throw new IndexOutOfBoundsException();
     	}
         return getNodeAt(index).getValue();
     }
 
-    // Retire l'élément à la fin de la liste.
-    // Complexité asymptotique: O(1)
-    public void popBack() throws EmptyListException 
+	/**
+	 * Retire l'élément à la fin de la liste.
+	 * @throws EmptyListException
+	 */
+	public void popBack() throws EmptyListException
     {
-    	if (empty())
-    	{
+    	/** Si la liste est vide, lance l'exception */
+    	if (empty()) {
     		throw new EmptyListException();
     	}
     	
@@ -117,7 +128,7 @@ public class DoublyLinkedList<AnyType>
         	Node<AnyType> temp = back.getPrev();
         	temp.setNext(null);
         	back.setPrev(null);
-        	back = temp;                    // a voir
+        	back = temp;
         }
         if (size <= 1)
         {
@@ -128,14 +139,15 @@ public class DoublyLinkedList<AnyType>
         size--;
     }
 
-    // Retire l'élément au début de la liste.
-    // Complexité asymptotique: O(1)
-    public void popFront() throws EmptyListException
+	/**
+	 * Retire l'élément au début de la lsite.
+	 * @throws EmptyListException
+	 */
+	public void popFront() throws EmptyListException
     {
-    	if (empty())
-    	{
+    	/** Si la pile est vide, lance l'exception */
+    	if (empty()) {
     		throw new EmptyListException();
-    		
     	}
        if (size >= 2)
        {
@@ -154,16 +166,19 @@ public class DoublyLinkedList<AnyType>
        size--;
     }
 
-    // Retire l'élément à l'indice donné.
-    // Complexité asymptotique: O(n)
-    public void removeAt(int index) throws IndexOutOfBoundsException
+	/**
+	 * Retire l'élément situé à l'index spécifié.
+	 * @param index: L'index de l'élément à retirer.
+	 * @throws IndexOutOfBoundsException
+	 */
+	public void removeAt(int index) throws IndexOutOfBoundsException
     {
-    
+    	/** Lance l'exception si l'index est négatif ou plus grand que la taille de la liste */
     	if (index < 0 || index > size )
     	{
-    		
     		throw new IndexOutOfBoundsException();
     	}
+
     	Node<AnyType> objet = getNodeAt(index);
     	if (index == 0)
     	{
@@ -186,8 +201,10 @@ public class DoublyLinkedList<AnyType>
     	size--;
     }
 
-    // Ajoute un élément à la fin de la liste.
-    // Complexité asymptotique: O(1)
+	/**
+	 * Ajoute un élément à la fin de la liste.
+	 * @param item: L'élément qui sera ajouté.
+	 */
     public void pushBack(AnyType item)
     {
 		Node<AnyType> nouveauNode =  new Node (item, null ,null) ;
@@ -209,8 +226,10 @@ public class DoublyLinkedList<AnyType>
 		size++;
     }
 
-    // Ajoute un élément au début de la liste.
-    // Complexité asymptotique: O(1)
+	/**
+	 * Ajoute un élément au début de la liste.
+	 * @param item: L'élément qui sera ajouté.
+	 */
     public void pushFront(AnyType item)
     {
     	Node<AnyType> nouveauNode =  new Node (item, null ,null) ;
@@ -235,12 +254,16 @@ public class DoublyLinkedList<AnyType>
     	size++;
     }
 
-    // Ajoute un élément à l'indice donné.
-    // Complexité asymtotique: O(n)
+	/**
+	 * Ajoute un élément à l'index spécifié.
+	 * @param item: L'élément qui sera ajouté.
+	 * @param index: L'index ou l'élément sera ajouté.
+	 * @throws IndexOutOfBoundsException
+	 */
     public void insertAt(AnyType item, int index) throws IndexOutOfBoundsException
     {
-    	if (index < 0 || index > size)
-    	{
+    	/** Lance l'exception si l'index est négatif ou plus grand que la taille de la liste */
+    	if (index < 0 || index > size) {
     		throw new IndexOutOfBoundsException();
     	}
     	Node<AnyType> temp = getNodeAt(index);

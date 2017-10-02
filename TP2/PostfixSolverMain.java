@@ -1,8 +1,8 @@
 import java.io.*;
 
-public class PostfixSolverMain 
+public class PostfixSolverMain
 {
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException
 	{
         String s1 = "0 1 or";
         String s2 = "0 0 or";
@@ -49,43 +49,43 @@ public class PostfixSolverMain
 
         System.out.print("PostfixSolver: It's all good");
      }
-	 
+
+    /**
+     * S'occupe de résoudre une équation post-fixe qu'on lui passe en paramètre
+     * @param input: L'équation post-fixe à résoudre.
+     * @return Le résultat de l'équation post-fixe.
+     * @throws ParsingErrorException
+     */
 	 public static boolean solve(String input) throws ParsingErrorException
      {
-        // À compléter
         ArrayStack<Boolean> stack = new ArrayStack<>();
+        boolean temp1;
+        boolean temp2;
         //L'expression est séparée en tokens selon les espaces.
         for (String token : input.split("\\s")) {
-        	if (token.equals("1"))
-        	{ stack.push(true); }
-        	
-        	else if (token.equals("0"))
-        	{ stack.push(false);}
-        	
-        	else if (token.equals("not"))
-        	{ stack.push(!stack.pop());}
-        	
-        	else if (token.equals("and"))
-        	{
-        		boolean temp1 = stack.pop();
-        		boolean temp2 = stack.pop();
-        		if (temp1 ==true && temp2 == true)
-        		{stack.push(true);}
-        		
-        		else {stack.push(false);}
-        	}
-        	
-        	else if (token.equals("or"))
-        	{
-        		boolean temp1 = stack.pop();
-        		boolean temp2 = stack.pop();
-        		if (temp1 ==false && temp2 == false)
-        		{stack.push(false);}
-        		
-        		else {stack.push(true);}
-        	}
-        	
+            /** Le switch case est divisé selon les cas possibles */
+            switch (token) {
+                case "1":
+                    stack.push(true);
+                    break;
+                case "0":
+                    stack.push(false);
+                    break;
+                case "not":
+                    stack.push(!stack.peek());
+                    break;
+                case "and":
+                    temp1 = stack.pop();
+                    temp2 = stack.pop();
+                    stack.push(temp1 & temp2);
+                    break;
+                case "or":
+                    temp1 = stack.pop();
+                    temp2 = stack.pop();
+                    stack.push(temp1 | temp2);
+                    break;
+            }
         }
-        	return stack.pop();
+         return stack.peek();
     }
 }

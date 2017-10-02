@@ -7,10 +7,7 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	private Stack<AnyType> outStack =  new Stack<AnyType>();
    
 	@SuppressWarnings("unchecked")
-	public StackQueue()
-	{
-       
-	}
+	public StackQueue() {}
 	
 	// Indique si la file est vide.
 	public boolean empty() 
@@ -23,38 +20,43 @@ public class StackQueue<AnyType> implements Queue<AnyType>
 	{ 
 		return size; 
 	}
-	
-	// Retourne l'élément en tête de file.
-	// Retourne null si la file est vide.
-	// Complexité asymptotique: O(1) (ammorti)
+
+	/**
+	 * Retourne l'élément du dessus de la file.
+	 * @return L'élément contenu dans la seconde pile qui est sensé
+	 * 		   être le premier élément de la file.
+	 */
 	public AnyType peek()
     {
-        if (empty())
-        {
+    	/** Si la file est vide, retourne null */
+        if (empty()) {
         	return null;
         }
-        
-        else 
-        {
+
+        else {
         	outStack.push(inStack.firstElement()) ;
         	return outStack.peek();
         }
 	}
-	
-	// Retire l'élément en tête de file.
-	// Complexité asymptotique: O(1) (ammorti)
+
+	/**
+	 * Retire le premier élément de la file.
+	 * @throws EmptyQueueException
+	 */
 	public void pop() throws EmptyQueueException
 	{
-		if (empty())
-		{
+		/** Lance l'exception si la file est vide */
+		if (empty()) {
 			throw new EmptyQueueException()	;
 		}
 		inStack.remove(0);
 		size--;
 	}
-	
-	// Ajoute un élément a la fin de la file.
-	// Complexité asymptotique: O(1)
+
+	/**
+	 * Ajoute un élément à l'intérieur de la file.
+	 * @param item: L'élément qui sera ajouté.
+	 */
 	public void push(AnyType item)
 	{
        inStack.push(item);

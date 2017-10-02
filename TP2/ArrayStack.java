@@ -7,33 +7,39 @@ public class ArrayStack<AnyType>
     private int size = 0; // Nombre d'éléments dans la pile.
     private AnyType[] table;
 
-    // Initialisation de la pile.
+    /**
+     * Construscteur. Initialise le tableau qui simule la pile.
+     */
     public ArrayStack()
     {
        table = (AnyType[]) new Object[INITIAL_SIZE];
     }
 
-    // Enlève l'élément au sommet de la pile et le renvoie.
-    // Complexité asymptotique: O(1)
+    /**
+     * Retire l'élément sur le dessus de la pile ou le dernier élément
+     * a avoir été ajouté.
+     */
     public AnyType pop() 
     {
-    	if (empty())
-    	{
+    	if (empty()) {
     		throw new EmptyStackException();
     	}
+
     	AnyType temp =  table[size-1];
     	table[size-1] = null;
     	size--;
        return temp;
     }
 
-    // Ajoute un élément au sommet de la pile.
-    // Augmente la taille de la pile si nécessaire (utiliser la fonction resize définie plus bas).
-    // Complexité asymptotique: O(1) (O(N) lorsqu'un redimensionnement est nécessaire)
+    /**
+     * Ajoute un élément sur le dessus de la pile.
+     * @param element: L'élément qui sera ajouté sur le dessus de la
+     *                 pile.
+     */
     public void push(AnyType element)
     {
-    	if (size == table.length )
-    	{
+        /** Si la pile est pleine, on la redimensionne */
+    	if (size == table.length ) {
     		resize(DEFAULT_RESIZE_FACTOR);
     	}
     	
@@ -41,13 +47,17 @@ public class ArrayStack<AnyType>
     	
     }
 
-    // Renvoie l'élément au sommet de la pile sans l'enlever.
-    // Retourne null si la pile est vide.
-    // Complexité asymptotique: O(1)
+    /**
+     * Retourne l'élément du dessus de la pile.
+     * @return table[ ] : l'élément du dessus de la pile qui sera
+     *                    retourné.
+     */
     public AnyType peek()
     {
-    	if  (empty())
-    	{return null;}
+        /** Si la pile est vide, retourne null */
+    	if  (empty()) {
+    	    return null;
+    	}
        return table[size-1];
     }
 
@@ -57,16 +67,18 @@ public class ArrayStack<AnyType>
     // Indique si la pile est vide.
     public boolean empty() { return size == 0; }
 
-    // Redimensionne la pile. La capacité est multipliée par un facteur de resizeFactor.
-    // Complexité asymptotique: O(N)
-    @SuppressWarnings("unchecked")
+    /**
+     * Retourne la même pile dont on a changé la taille.
+     * @param resizeFactor: Le facteur d'agrangissement de la pile.
+     */
     private void resize(int resizeFactor)
     {
-    	AnyType[] temp =  (AnyType[]) new Object[resizeFactor*size];
-        for (int i = 0; i< size; i++ )
-        {
+    	AnyType[] temp =  (AnyType[]) new Object[resizeFactor*table.length];
+
+        for (int i = 0; i < size; i++ ) {
         	temp[i] = table[i];
         }
+
         table = temp;
     }
 }
