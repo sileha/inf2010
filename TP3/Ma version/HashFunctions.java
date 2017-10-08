@@ -20,7 +20,7 @@ public class HashFunctions
        * Exercice 1
        */
       // On cree un QuadraticSpacePerfectHashing et insere les donnees
-      /*System.out.println( "QuadraticSpacePerfectHashing:");
+      System.out.println( "QuadraticSpacePerfectHashing:");
       System.out.println();
       
       QuadraticSpacePerfectHashing<Integer> e = new QuadraticSpacePerfectHashing<Integer>( al ); 
@@ -37,14 +37,14 @@ public class HashFunctions
       System.out.println( 199 + " est present: " + e.containsValue(199) );
       System.out.println( 300 + " est present: " + e.containsValue(300) );
       System.out.println( 299 + " est present: " + e.containsValue(299) );
-      System.out.println();*/
+      System.out.println();
 
       /**
        * Exercice 2
        */
 
       // On cree un LinearSpacePerfectHashing et insere les memes donnees
-      System.out.println( "LinearSpacePerfectHashing:");
+      /*System.out.println( "LinearSpacePerfectHashing:");
       System.out.println();
       
       LinearSpacePerfectHashing<Integer> pfhash = new LinearSpacePerfectHashing<Integer>( al );

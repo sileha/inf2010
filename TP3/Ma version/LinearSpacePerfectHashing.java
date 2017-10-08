@@ -45,7 +45,7 @@ public class LinearSpacePerfectHashing<AnyType>
          return;
       }
       if(array.size() > 1) {
-          a = generator.nextInt(p);`
+          a = generator.nextInt(p);
           b = generator.nextInt(p);
           data = new QuadraticSpacePerfectHashing[m];
         for(int i = 0; i < data.length -1; i++) {
