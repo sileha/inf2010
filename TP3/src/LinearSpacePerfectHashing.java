@@ -41,7 +41,8 @@ public class LinearSpacePerfectHashing<AnyType>
          data = new QuadraticSpacePerfectHashing[m];
          int index = ( ( a*array.get(0).hashCode() + b ) % p ) % m;
          data[index].items = (AnyType[]) new Object[(int) Math.pow(m, 2)];
-         data[index].items[index] = array.get(0);
+         int index2 = ((a*array.get(0).hashCode() + b) % p) % (int) Math.pow(m, 2);
+         data[index].items[index2] = array.get(0);
          return;
       }
       if(array.size() > 1) {
@@ -53,7 +54,7 @@ public class LinearSpacePerfectHashing<AnyType>
             data[i].items = (AnyType[]) new Object[(int) Math.pow(m , 2)];
             for(int j = 0; j < array.size() -1; j++) {
                 int index = ((a*array.get(j).hashCode() + b) % p) % m;
-                data[i].items[index] = array.get(i);
+                data[i].items[index] = array.get(j);
             }
         }
       }
@@ -77,9 +78,11 @@ public class LinearSpacePerfectHashing<AnyType>
    public boolean containsKey(int key)
    {
       // A completer
-      if(data[key] == null || data[key].items[key] == null)
-         return false;
-      return true;
+     for(int i = 0; i < data.length -1; i++) {
+         if(data[i].items[key] == null)
+             return false;
+     }
+     return true;
    }
 
    public int getKey (AnyType x) {
@@ -90,33 +93,44 @@ public class LinearSpacePerfectHashing<AnyType>
    public boolean containsValue (AnyType x) {
       // A completer
        int index = getKey(x);
-       if (data[index] == null || data[index].items[index] == null)
-           return false;
-
-       return true;
+       for(int i = 0; i < data.length - 1; i++) {
+           if(data[i].items[index].equals(x))
+               return true;
+       }
+       return false;
    }
 
    public void remove (AnyType x) {
       // A completer
        int index = getKey(x);
-       data[index].items[index] = null;
+       for(int i = 0; i < data.length -1; i++) {
+           if(data[i].items[index] == x)
+               data[i].items[index] = null;
+       }
    }
 
    public String toString () {
       String result = "";
 
       // A completer
-       for(int i = 0; i < data.length -1; i++) {
-           if (data[i] != null)
-               result = result.concat("( " + getKey(data[i].items[i]) + " , " + data[i].items[i] + " ) ");
-           // A completer
+       for(int i = 0; i < data.length - 1; i++) {
+           for(int j = 0; j < data[i].items.length -1; j++) {
+               if(data[i].items[j] != null)
+                   result = result.concat("( " + getKey(data[i].items[j]) + " , " + data[i].items[j] + " )");
+           }
        }
+           // A completer
 
       return result;
    }
 
    public void makeEmpty () {
-      // A completer
+       // A completer
+       for (int i = 0; i < data.length - 1; i++) {
+           for (int j = 0; j < data[i].items.length - 1; j++)
+               data[i].items[j] = null;
+           data[i] = null;
+       }
    }
 
 }

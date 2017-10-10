@@ -100,9 +100,9 @@ public class QuadraticSpacePerfectHashing<AnyType>
       String result = "";
 
       // A completer
-      for(int i = 0; i < items.length -1; i++) {
+      for(int i = 0; i < items.length - 1; i++) {
           if (items[i] != null)
-              result = result.concat("( " + getKey(items[i]) + " , " + items[i] + " ) ");
+              result = result.concat("( " + getKey(items[i]) + " , " + items[i] + " )");
           // A completer
       }
       return result;
