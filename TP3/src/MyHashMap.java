@@ -1,6 +1,9 @@
+package probleme2;
+
+
 public class MyHashMap<KeyType, ValueType>
-{
-  /* private DoubleHashingTable< Entry<KeyType, ValueType> > items;
+{/*
+   private DoubleHashingTable< Entry<KeyType, ValueType> > items;
 
    public MyHashMap( )
    {

@@ -88,12 +88,13 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		
 		if (array.size() > 1)
 		{
-			a = generator.nextInt(p);
-			b = generator.nextInt(p);
+			
 			boolean tableauRemplieSansCollision = true;
 			
 			while (tableauRemplieSansCollision)
 				{
+				a = generator.nextInt(p);
+				b = generator.nextInt(p);
 				
 					for (int i=0; i<array.size() ;i++)
 						{
@@ -109,7 +110,6 @@ public class QuadraticSpacePerfectHashing<AnyType>
 								}
 							else if (!containsValue(array.get(i)))
 								{
-									tableauRemplieSansCollision = false;
 									makeEmpty();
 									break;
 								}

@@ -53,8 +53,6 @@ public class HashFunctions
       System.out.println( "Number of elements: " + al.size() );
       System.out.println( "Size: " + pfhash.Size() );
       System.out.println();
-
-      System.out.println(pfhash.getKey(100));
       
       // Verifie qu'il fonctionne comme prevu
       System.out.println( 100 + " est present: " + pfhash.containsValue(100) );
@@ -63,7 +61,7 @@ public class HashFunctions
       System.out.println( 199 + " est present: " + pfhash.containsValue(199) );
       System.out.println( 300 + " est present: " + pfhash.containsValue(300) );
       System.out.println( 299 + " est present: " + pfhash.containsValue(299) );
-      System.out.println();*/
+      System.out.println();
       /**
        * Question 1 (confirmation des resultats de Exercice 2) 
        */
