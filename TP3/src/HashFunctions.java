@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HashFunctions 
 {
@@ -44,7 +45,7 @@ public class HashFunctions
        */
 
       // On cree un LinearSpacePerfectHashing et insere les memes donnees
-      /*System.out.println( "LinearSpacePerfectHashing:");
+      System.out.println( "LinearSpacePerfectHashing:");
       System.out.println();
       
       LinearSpacePerfectHashing<Integer> pfhash = new LinearSpacePerfectHashing<Integer>( al );
@@ -65,7 +66,7 @@ public class HashFunctions
       /**
        * Question 1 (confirmation des resultats de Exercice 2) 
        */
-      /*// Effectues quelques tests aleatoires pour verifier les proprietes de taille
+      // Effectues quelques tests aleatoires pour verifier les proprietes de taille
       pfhash = new LinearSpacePerfectHashing<Integer>();
       System.out.println("Tests aleatoires");
       
@@ -73,16 +74,38 @@ public class HashFunctions
       {
          pfhash.SetArray( randomIntegers( nbElements ) );			
          System.out.println( nbElements + "\t" + pfhash.Size() );
-      }*/
+      }
    }
    
    /**
     * Question 1
     */
-  /* public static ArrayList<Integer> randomIntegers(int length)
+   public static ArrayList<Integer> randomIntegers(int length)
    {
-      return null;
-   }*/
-}
+	   Random generator = new Random(System.nanoTime());
+	      ArrayList<Integer> array = new ArrayList(length + 1);
+
+	      /**Remplir le tableau en premier */
+	      for (int i = 0; i < length; i++) {
+	         int toAdd = generator.nextInt(p);
+	         array.add(toAdd);
+	      }
+
+	      /** Verifier si il y a doublons */
+	      verifierDoublons(array);
+
+	      return array;
+   }
+
+
+public static void verifierDoublons(ArrayList<Integer> al) {
+    Random generator = new Random(System.nanoTime());
+    for (int i = 0; i < al.size(); i++) {
+       for (int j = i + 1; j < al.size() - i; j++) {
+          if (al.get(i).equals(al.get(j)))
+             al.add(i, generator.nextInt(p));
+       }
+    }
+ }
 
 

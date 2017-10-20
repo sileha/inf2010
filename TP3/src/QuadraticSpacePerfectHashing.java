@@ -74,8 +74,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		
 		
 		if(array == null || array.size() == 0)
-		{
-			
+		{			
 			return;
 		}
 		if(array.size() == 1)

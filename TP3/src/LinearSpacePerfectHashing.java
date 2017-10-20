@@ -1,5 +1,3 @@
-package probleme1;
-
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -50,15 +48,22 @@ public class LinearSpacePerfectHashing<AnyType>
 			b = generator.nextInt(p);
 			int key1;
 			int key2;
-			
 			m = array.size();
+			ArrayList<AnyType> tableau = new ArrayList<AnyType>(m);
 			data  = new QuadraticSpacePerfectHashing[m];
 			
 			for (int i=0; i < m ; i++)
 			{
-				key1 = getKey(array.get(i));
-			    key2 = data[key1].getKey(array.get(i));
-				data[key1].items[key2] = array.get(i);
+				for (int j = 0; j < array.size() ; j++)
+				{
+					key1 = getKey(array.get(j));
+					if (key1 == i)
+					{
+						tableau.add(array.get(j));
+					}
+				}
+				data[i] =  new QuadraticSpacePerfectHashing<AnyType>(tableau);
+				
 			}
 			
 		}

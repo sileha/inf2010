@@ -1,8 +1,8 @@
-package probleme2;
+
 
 
 public class MyHashMap<KeyType, ValueType>
-{/*
+{
    private DoubleHashingTable< Entry<KeyType, ValueType> > items;
 
    public MyHashMap( )
@@ -45,5 +45,5 @@ public class MyHashMap<KeyType, ValueType>
       {
          return key.hashCode();
       }
-   }    */
+   }    
 }
