@@ -47,7 +47,6 @@ public class LinearSpacePerfectHashing<AnyType>
 			a = generator.nextInt(p);
 			b = generator.nextInt(p);
 			int key1;
-			int key2;
 			m = array.size();
 			ArrayList<AnyType> tableau = new ArrayList<AnyType>(m);
 			data  = new QuadraticSpacePerfectHashing[m];
