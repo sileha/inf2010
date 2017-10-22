@@ -8,11 +8,18 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	int a, b, m;
 	AnyType[] items;
 
+	/**
+	 * Constructeur par défaut
+	 */
 	QuadraticSpacePerfectHashing()
 	{
 		a=b=0; items = null;
 	}
 
+	/**
+	 * Constructeur par paramètre.
+	 * @param array: Array qu'on lui passe pour construire l'objet.
+	 */
 	QuadraticSpacePerfectHashing(ArrayList<AnyType> array)
 	{
 		AllocateMemory(array);
@@ -23,6 +30,10 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		AllocateMemory(array);
 	}
 
+	/**
+	 * Retourne la taille (nombre d'éléments) de la table de hashage.
+	 * @return
+	 */
 	public int Size()
 	{
 		if( items == null ) return 0;
@@ -30,6 +41,11 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		return items.length;
 	}
 
+	/**
+	 * Détermine si une clé est présente dans la table de hashage.
+	 * @param key: La clé qu'on cherche à trouver.
+	 * @return true/false: True si la clé y est, false sinon.
+	 */
 	public boolean containsKey(int key)
 	{
 		// A completer            voir est ce il ya un element a ce key 
@@ -40,6 +56,11 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		return true;
 	}
 
+	/**
+	 * Détermine si un élément se trouve dans la table de hashage.
+	 * @param x: L'élément qu'on cherche à trouver.
+	 * @return true/false: True si l'élément y est, false sinon.
+	 */
 	public boolean containsValue(AnyType x )
 	{
 		// A completer
@@ -53,19 +74,30 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
 	}
 
+	/**
+	 * Retire un élément de la table de hashage.
+	 * @param x: L'élément qu'on cherche à retirer.
+	 */
 	public void remove (AnyType x) {
 		// A completer
 		items[getKey(x)] = null;
 
 	}
 
+	/**
+	 * Retourne la clé calculée à partir de la valeur de hashcode de l'élément qu'on lui passe.
+	 * @param x: L'élément dont la clé est calculée.
+	 * @return
+	 */
 	public int getKey (AnyType x) {
-		
-		
 		return ( ( a*(x).hashCode() + b ) % p ) % m;
 	}
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * Alloue la mémoire nécessaire pour le array qu'on lui passe.
+	 * @param array: Le array dont la mémoire sera allouée.
+	 */
 	private void AllocateMemory(ArrayList<AnyType> array)
 	{
 		Random generator = new Random( System.nanoTime() );
@@ -118,8 +150,10 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		}
 	}
 
-	
-	
+	/**
+	 * Permet d'afficher les éléments de la table de hashage.
+	 * @return result: Les éléments de la table transformés en string.
+	 */
 	public String toString () {
 		String result = "";
 		for (int i=0; i<items.length; i++)
@@ -133,6 +167,9 @@ public class QuadraticSpacePerfectHashing<AnyType>
 		return result; 
 	}
 
+	/**
+	 * Vide la table de hashage de ses éléments.
+	 */
 	public void makeEmpty () {
 		   for (int i = 0; i<items.length; i++)
 		   {

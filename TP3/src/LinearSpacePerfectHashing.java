@@ -8,11 +8,18 @@ public class LinearSpacePerfectHashing<AnyType>
 	QuadraticSpacePerfectHashing<AnyType>[] data;
 	int a, b , m;
 
+	/**
+	 *  Constructeur par défaut
+	 */
 	LinearSpacePerfectHashing()
 	{
 		a=b=0; data = null;
 	}
 
+	/**
+	 * Constructeur par paramètre.
+	 * @param array: Le array avec lequel l'objet sera construit.
+	 */
 	LinearSpacePerfectHashing(ArrayList<AnyType> array)
 	{
 		AllocateMemory(array);
@@ -24,6 +31,10 @@ public class LinearSpacePerfectHashing<AnyType>
 	}
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * Alloue la mémoire nécessaire pour le array qu'on lui passe.
+	 * @param array: Le array dont la mémoire sera allouée
+	 */
 	private void AllocateMemory(ArrayList<AnyType> array)
 	{
 		Random generator = new Random( System.nanoTime() );
@@ -70,6 +81,10 @@ public class LinearSpacePerfectHashing<AnyType>
 		
 	}
 
+	/**
+	 * Retourne la taille (nombre d'élements) à l'intérieur de la table de hashage linéaire.
+	 * @return size: La taille qui sera retournée.
+	 */
 	public int Size()
 	{
 		if( data == null ) return 0;
@@ -82,45 +97,68 @@ public class LinearSpacePerfectHashing<AnyType>
 		return size;
 	}
 
+	/**
+	 * Détermine si une clé est déjà présente dans la table.
+	 * @param key: La clé qu'on cherche.
+	 * @return
+	 */
 	public boolean containsKey(int key)
 	{
 		return data[key].containsKey(key);
 
 	}
-	
+
+	/**
+	 * Retourne une clé calculé à partir de la valeur de hashcode de l'élément passé en param.
+	 * @param x: L'élément dont la clé sera calculée.
+	 * @return
+	 */
 	public int getKey (AnyType x) {
 		
 		// x.hashCode() suppose donner une valeur < p!
 		return ((a*x.hashCode() + b)%p) % m;
 		
 	}
-	
+
+	/**
+	 * Détermine si un élément se trouve à l'intérieur de la table de hashage.
+	 * @param x: L'élément qu'on cherche à trouver.
+	 * @return
+	 */
 	public boolean containsValue (AnyType x) {
 		int key = getKey(x);
 		return data[key].containsValue(x);
 
 	}
-	
+
+	/**
+	 * Retire un élément de la table de hashage.
+	 * @param x: L'élément qu'on cherche à retirer de la table.
+	 */
 	public void remove (AnyType x) {
 		int key = getKey(x);
 		data[key].remove(x);
 		
 	}
 
+	/**
+	 * Permet d'afficher la table de hashage en entier.
+	 * @return result: Les éléments de la table transformés en string.
+	 */
 	public String toString () {
 		String result = "";
 		
 		for (int i=0; i < data.length; i++)
 		{
-			result.concat("["+ "cl�_"+ i +"]" + " -> " + data[i].toString());
+			result.concat("["+ "cl�_"+ i +"]" + " -> " + data[i].toString());
 			
 		}
-		
-		
-		
 		return result; 
 	}
 
+	/**
+	 * Vide la table de hashage de ses éléments.
+	 */
 	public void makeEmpty () {
 		for (int i=0 ; i<m; i++)
 		{
