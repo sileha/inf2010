@@ -103,7 +103,7 @@ public static void verifierDoublons(ArrayList<Integer> al) {
     for (int i = 0; i < al.size(); i++) {
        for (int j = i + 1; j < al.size() - i; j++) {
           if (al.get(i).equals(al.get(j)))
-             al.add(i, generator.nextInt(p));
+             al.add(i, generator.nextInt(p));}
        }
     }
  }
