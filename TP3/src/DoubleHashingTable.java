@@ -1,5 +1,5 @@
 
-public class DoubleHashingTable<Entry>
+public class DoubleHashingTable<AnyType>
 {
     /**
      * Construct the hash table.
@@ -24,14 +24,14 @@ public class DoubleHashingTable<Entry>
      * already present, do nothing.
      * @param x the item to insert.
      */
-    public void insert( Entry entry)
+    public void insert(AnyType x)
     {
             // Insert x as active
-        int currentPos = findPos( entry );
+        int currentPos = findPos(x);
         if( isActive( currentPos ) )
             return;
 
-        array[ currentPos ] = new HashEntry<Entry>(entry, true );
+        array[ currentPos ] = new HashEntry<AnyType>(x, true );
 
             // Rehash; see Section 5.5
         if( ++currentSize > array.length / 2 )
@@ -43,7 +43,7 @@ public class DoubleHashingTable<Entry>
      */
     private void rehash( )
     {
-        HashEntry<Entry> [ ] oldArray = array;
+        HashEntry<AnyType> [ ] oldArray = array;
 
             // Create a new double-sized, empty table
         allocateArray( nextPrime( 2 * oldArray.length ) );
@@ -60,7 +60,7 @@ public class DoubleHashingTable<Entry>
      * @param x the item to search for.
      * @return the position where the search terminates.
      */
-    private int findPos( Entry x )
+    private int findPos(AnyType x)
     {
         int currentPos = Hash1( x );
 
@@ -76,26 +76,26 @@ public class DoubleHashingTable<Entry>
     }
     
     /** Nombre d'occurence */
-    public int nbreOccurence(Entry entry)
+    public int nbreOccurence(AnyType x)
     {
     	
     	int temp = 0;
-    	int currentPos = Hash1( entry );
+    	int currentPos = Hash1(x);
     	
     	while(array[ currentPos ] != null)
     	{
-    		if (array[currentPos].element.equals( entry ))
+    		if (array[currentPos].element.equals( x ))
     			{
     				temp++;
     			}
-    		currentPos = Hash2(currentPos, entry);
+    		currentPos = Hash2(currentPos, x);
     	}
     	return temp;
     }
     
     /** Deuxieme fonction de hachage */
     
-    public int Hash2(int currentPos, Entry entry)
+    public int Hash2(int currentPos, AnyType x)
     {
     	int R = 0; 
     	int temp = array.length;
@@ -120,7 +120,7 @@ public class DoubleHashingTable<Entry>
     		}
     		compteur = 0;
     	}
-		currentPos +=  R - (entry.hashCode()%R);
+		currentPos +=  R - (x.hashCode()%R);
 		
 		return currentPos;
     }
@@ -129,7 +129,7 @@ public class DoubleHashingTable<Entry>
      * Remove from the hash table.
      * @param x the item to remove.
      */
-    public void remove( Entry x )
+    public void remove(AnyType x)
     {
         int currentPos = findPos( x );
         if( isActive( currentPos ) )
@@ -141,7 +141,7 @@ public class DoubleHashingTable<Entry>
      * @param x the item to search for.
      * @return the matching item.
      */
-    public boolean contains( Entry x )
+    public boolean contains(AnyType x)
     {
         int currentPos = findPos( x );
         return isActive( currentPos );
@@ -167,9 +167,9 @@ public class DoubleHashingTable<Entry>
             array[ i ] = null;
     }
 
-    private int Hash1(Entry entry)
+    private int Hash1(AnyType x)
     {
-        int hashVal = entry.hashCode() ;
+        int hashVal = x.hashCode() ;
 
         hashVal %= array.length;
         if( hashVal < 0 )
@@ -178,10 +178,10 @@ public class DoubleHashingTable<Entry>
         return hashVal;
     }
     
-    public Entry get( Entry entry)
+    public AnyType get(AnyType x)
     {
     	
-    return array[findPos(entry)].element ;
+    return array[findPos(x)].element ;
     }
     
     public int nbElement()
@@ -189,17 +189,17 @@ public class DoubleHashingTable<Entry>
     	return currentSize;
     }
     
-    private static class HashEntry<Entry>
+    private static class HashEntry<AnyType>
     {
-        public Entry  element;   // the element
+        public AnyType  element;   // the element
         public boolean isActive;  // false if marked deleted
 
-        public HashEntry( Entry e )
+        public HashEntry( AnyType e )
         {
             this( e, true );
         }
 
-        public HashEntry( Entry e, boolean i )
+        public HashEntry( AnyType e, boolean i )
         {
             element  = e;
             isActive = i;
@@ -208,7 +208,7 @@ public class DoubleHashingTable<Entry>
 
     private static final int DEFAULT_TABLE_SIZE = 11;
 
-    private HashEntry<Entry> [ ] array; // The array of elements
+    private HashEntry<AnyType> [ ] array; // The array of elements
     private int currentSize;              // The number of occupied cells
 
     /**

@@ -101,7 +101,6 @@ public class HashFunctions
  * Méthode globale qui vérifie la présence de doublons dans un array générer de façon aléatoire.
  * @param al: ArrayList qu'on passe à la fonction et qui sera remplie de chiffres aléatoires.
 */
-   /
 public static void verifierDoublons(ArrayList<Integer> al) {
     Random generator = new Random(System.nanoTime());
     for (int i = 0; i < al.size(); i++) {
