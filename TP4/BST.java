@@ -36,21 +36,63 @@ public class BST<T extends Comparable<T>>
 
     protected int getHeight(Node<T> node)
     {
-        // À compléter
+        if (node == null)
+        {
+        	return -1;
+        }
+        else 
+        {
+        	return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        }
+        
+        
     }
 
 	public void insert(T elem) { root = insert(root, elem); }
 
 	private Node<T> insert(Node<T> node, T elem)
     {
-		// À compléter
+		if (node == null)
+		{
+			return new Node(elem);
+		}
+		
+
+			if (elem.compareTo(node.val) < 0)
+			{
+				node.left = insert(node.left, elem);
+			}
+			else if (elem.compareTo(node.val) > 0)
+			{
+				node.right = insert(node.right, elem);
+			}
+			
+			else ;
+			
+		return node;
+		
 	}
 
     public boolean contains(T elem) { return contains(root, elem); }
 
     private boolean contains(Node<T> node, T elem)
     {
-        // À compléter
+        if (node == null)
+        {
+        	return false;
+        }
+        
+        	if (elem.compareTo(node.val) < 0)
+        	{
+        		return contains(node.left, elem);
+        	}
+        	else if(elem.compareTo(node.val) > 0)
+        	{
+        		return contains(node.right, elem);	
+        	}
+        	else  { return true ;} 
+        	
+        	
     }
 
     public ArrayList<T> traversePreOrder()
@@ -63,13 +105,6 @@ public class BST<T extends Comparable<T>>
 	private void traversePreOrder(Node<T> node, ArrayList<T> list)
 	{
         // À compléter
-        list.add(node.val);
-
-        if(!node.left.equals(null))
-            traversePreOrder(node.left, list);
-
-        if(!node.right.equals(null))
-            traversePreOrder(node.right, list);
 	}
 
     public ArrayList<T> traversePostOrder()
@@ -79,16 +114,10 @@ public class BST<T extends Comparable<T>>
 		return list;
 	}
 
-	private void traversePostOrder(Node<T> node, ArrayList<T> list) {
+	private void traversePostOrder(Node<T> node, ArrayList<T> list)
+	{
         // À compléter
-        if (!node.left.equals(null))
-            traversePostOrder(node.left, list);
-
-        if (!node.right.equals(null))
-            traversePostOrder(node.right, list);
-
-        list.add(node.val);
-    }
+	}
 
     public ArrayList<T> traverseInOrder()
     {
@@ -100,13 +129,6 @@ public class BST<T extends Comparable<T>>
     private void traverseInOrder(Node<T> node, ArrayList<T> list)
     {
         // À compléter
-        if(!node.left.equals(null))
-            traverseInOrder(node.left, list);
-
-        list.add(node.val);
-
-        if(!node.right.equals(null))
-            traverseInOrder(node.right, list);
     }
 
     public ArrayList<T> traverseReverseOrder()
@@ -119,15 +141,6 @@ public class BST<T extends Comparable<T>>
     private void traverseReverseOrder(Node<T> node, ArrayList<T> list)
     {
         // À compléter
-        if(!node.right.equals(null)) {
-            traverseReverseOrder(node.right, list);
-            list.add(node.val);
-        }
-
-        if(!node.left.equals(null))
-            traverseReverseOrder(node.left, list);
-
-        list.add(node.val);
     }
 
     public ArrayList<T> traverseLevelOrder()
@@ -136,11 +149,8 @@ public class BST<T extends Comparable<T>>
         Queue<Node> queue = new LinkedList<Node>();
         queue.add(root);
 
-        int i = queue.size();
         while (!queue.isEmpty()) {
             // À compléter
-            Node<T> tmp = queue.remove();
-            list.add(i--, tmp.val);
         }
 
 		return list;
