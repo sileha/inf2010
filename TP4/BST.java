@@ -166,20 +166,25 @@ public class BST<T extends Comparable<T>>
 
     public ArrayList<T> traverseLevelOrder()
 	{
-		ArrayList<T> list = new ArrayList<T>();
+	        ArrayList<T> list = new ArrayList<T>();
         Queue<Node<T>> queue = new LinkedList<Node<T>>();
-        Node<T> node = root;
-        queue.add(node);
-        while (!queue.isEmpty()) 
-        {
-        	
-        	list.add(queue.poll().val);    
-        	queue.add(node.left);
-        	queue.add(node.right);
-       
+        Node<T> nNode = root;
+        queue.add(nNode);
+
+        while (!queue.isEmpty()) {
+            
+            Node<T> tNode = queue.remove();
+            if (tNode != null) {
+                list.add(tNode.val);
+
+                if (tNode.left != null)
+                    queue.add(tNode.left);
+                if (tNode.right != null)
+                    queue.add(tNode.right);
+            }
         }
-        
-		return list;
+
+        return list;
 	}
 }
 
