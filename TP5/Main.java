@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 public class Main
 {
 	
@@ -10,33 +13,46 @@ public static void main(String[] args)
 
 public static void testNode()
 {
-	Integer[] array1 = new Integer[] {2, 4, 5, 13, 23, 12, 15, 11, 14, 17, 22};
-	Integer[] array2 = new Integer[] {16, 18, 3, 21, 22, 6, 7, 8, 9, 10, 13 };
+	
 	Node node1 = new Node(1);
 	Node node2 = new Node(7);
-	for (int val: array1)
-	{
-		node1.addEnfant(new Node(val));
-	}
-	for (int val : array2)
-	{
-		node2.addEnfant(new Node(val));
-	}
-	
-	node1.findValue(22);
+	Node node3 = new Node(2);
+	Node node4 = new Node(5);
+	Node node5 = new Node(6);
+	Node node6 = new Node(3);
+	Node node7 = new Node(8);
 	try
-	{node1.fusion(node2);}
-			catch(DifferentOrderTrees e) {System.out.println("une fusion d'arbre d'ordre different");}
-	node1.getElementsSorted();
-	node1.delete();
+	{
+		node1.fusion(node3);
+		node2.fusion(node4);
+		node1.fusion(node4);
+		node5.fusion(new Node(11));
+		node6.fusion(new Node(12));
+		node7.fusion(new Node(9));
+		node7.fusion(node6);
+		node1.fusion(node6);
+		node1.fusion(node5);
+		
+	}
+	catch(DifferentOrderTrees e) {System.out.println("une fusion d'arbre d'ordre different, test verifie!");}
+	System.out.println(node1.findValue(8));
 	
+	// test pour getElementsSorted()
+	ArrayList<Integer> arrayInteger= node1.getElementsSorted();
+	for (int i=0; i < arrayInteger.size(); i++ )
+		System.out.println(arrayInteger.get(i));
 	
+	// test pour delete()
+	ArrayList<Node> array = node7.delete();
+		for (int i=0; i < array.size(); i++ )
+		  System.out.println(array.get(i).getVal());
+		
 }
 
 public static void testMonceau()
 {
 	
-	
+	return ;
 }
 
 }
