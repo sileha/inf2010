@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class Main
 {
 	
@@ -24,7 +23,7 @@ public static void testNode()
 	try
 	{
 		node1.fusion(node3);
-		node2.fusion(node4);
+        node2.fusion(node4);
 		node1.fusion(node4);
 		node5.fusion(new Node(11));
 		node6.fusion(new Node(12));
@@ -36,8 +35,12 @@ public static void testNode()
 	}
 	catch(DifferentOrderTrees e) {System.out.println("une fusion d'arbre d'ordre different, test verifie!");}
 	System.out.println(node1.findValue(8));
-	
+
+	//node1.print(" ");
+
+
 	// test pour getElementsSorted()
+	System.out.println("*********************Test********************");
 	ArrayList<Integer> arrayInteger= node1.getElementsSorted();
 	for (int i=0; i < arrayInteger.size(); i++ )
 		System.out.println(arrayInteger.get(i));
@@ -46,7 +49,6 @@ public static void testNode()
 	ArrayList<Node> array = node7.delete();
 		for (int i=0; i < array.size(); i++ )
 		  System.out.println(array.get(i).getVal());
-		
 }
 
 public static void testMonceau()

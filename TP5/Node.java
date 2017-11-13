@@ -75,7 +75,6 @@ public class Node {
             	autre.enfants.add(this);
         		return parent;
         	}
-        	
         }
         else  throw new DifferentOrderTrees();
     }
@@ -123,8 +122,19 @@ public class Node {
     }	
 
     public void print(String tabulation) {
-        // à compléter
-    }
+		// à compléter
+		String separation = " ";
+		System.out.print(tabulation + this.valeur);
+		tabulation+=tabulation;
+		for (Node i : this.enfants) {
+			if (i.enfants.size() != 0) {
+				i.print(tabulation);
+			}
+			else {
+				System.out.println(separation + i.valeur);
+			}
+		}
+	}
     
     public Node findValue(int valeur) {
     	
