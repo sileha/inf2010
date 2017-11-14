@@ -74,8 +74,28 @@ public static void testNode()
 
 public static void testMonceau()
 {
-	
-	return ;
+	Node node1 = new Node(1);
+	Node node2 = new Node(7);
+	Node node3 = new Node(2);
+	Node node4 = new Node(5);
+	Node node5 = new Node(6);
+	Node node6 = new Node(3);
+	Node node7 = new Node(8);
+	Node node8 = new Node(13);
+
+	try {
+		node1.fusion(node2);
+		node3.fusion(node4);
+		node1.fusion(node3);
+	} catch (DifferentOrderTrees e) {};
+
+	try {
+		node5.fusion(node6);
+		node7.fusion(node8);
+		node5.fusion(node7);
+	} catch (DifferentOrderTrees e) {};
+
+
 }
 
 public static ArrayList<Integer> createArrayListInteger(int[] array) {
