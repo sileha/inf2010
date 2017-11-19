@@ -17,14 +17,17 @@ public class Monceau {
         for(int j = 0; j < ordreMax; j++) {
             Node node1[] = arbreMemeOrdre(this.arbres, j);
             Node node2[] = arbreMemeOrdre(autre.arbres, j);
-            Node node3[] = new Node[ordreMax];
 
-            if(retenue.size() != 0)
+            if(retenue.size() != 0) {
+                Node node3[] = new Node[retenue.size()];
                 node3 = arbreMemeOrdre(retenue, j);
+                remplirTableau(arbres, retenue, node3);
+            }
 
-            remplirTableau(arbres, retenue, node1);
-            remplirTableau(arbres, retenue, node2);
-            remplirTableau(arbres, retenue, node3);
+            if(node1.length != 0)
+                remplirTableau(arbres, retenue, node1);
+            if(node2.length != 0)
+                remplirTableau(arbres, retenue, node2);
         }
     }
     public void insert(int val) {
@@ -52,7 +55,7 @@ public class Monceau {
     }
 
     public Node[] arbreMemeOrdre(ArrayList<Node> a, int ordre) {
-        Node array[] = new Node[];
+        Node array[] = new Node[a.size()];
         int counter = 0;
         for(Node i: a) {
             if(i.ordre == ordre)
@@ -81,7 +84,7 @@ public class Monceau {
     public int ordreMax() {
         int max = 0;
         for(Node i: this.arbres) {
-            if(i.getVal() > max)
+            if(i.ordre > max)
                 max = i.getVal();
         }
         return max;
