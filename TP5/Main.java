@@ -105,9 +105,9 @@ public static void testMonceau()
 	monceau2.insert(24);
 	monceau2.insert(26);
 	monceau2.insert(27);
-	monceau2.fusion(monceau1);
 	monceau2.delete(24);
-	monceau2.print();
+	monceau1.fusion(monceau2);
+	monceau1.print();
 	return ;
 }
 
